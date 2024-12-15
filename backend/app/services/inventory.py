@@ -1,19 +1,20 @@
+from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status
-from typing import Optional, Tuple
+from typing import Dict, Optional, Tuple, List
 
 from app.models.inventory import (
     MaterialStock,
     MaterialStockCreate,
-    MaterialStockUpdate,
-    MaterialStockReadList
+    MaterialStockUpdate
 )
+from app.repositories.inventory import InventoryRepository
 
 
 class InventoryService:
     def __init__(self, db: Session):
-        self.db = db
+        self.repository = InventoryRepository(db)
 
     def create_material_stock(self, material_stock: MaterialStockCreate) -> MaterialStock:
         """Yeni malzeme stok kaydı oluşturur"""
@@ -24,12 +25,8 @@ class InventoryService:
                 quantity=material_stock.quantity,
                 reserved=material_stock.reserved
             )
-            self.db.add(db_material_stock)
-            self.db.commit()
-            self.db.refresh(db_material_stock)
-            return db_material_stock
+            return self.repository.create(db_material_stock)
         except IntegrityError:
-            self.db.rollback()
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Material with ID {material_stock.material_id} already exists"
@@ -37,9 +34,7 @@ class InventoryService:
 
     def get_material_stock(self, material_id: str) -> MaterialStock:
         """Malzeme stok bilgisini getirir"""
-        material_stock = self.db.query(MaterialStock).filter(
-            MaterialStock.material_id == material_id
-        ).first()
+        material_stock = self.repository.get_by_material_id(material_id)
         if not material_stock:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -52,20 +47,9 @@ class InventoryService:
         skip: int = 0,
         limit: int = 100,
         search: Optional[str] = None
-    ) -> Tuple[list[MaterialStock], int]:
+    ) -> Tuple[List[MaterialStock], int]:
         """Malzeme stok listesini getirir"""
-        query = self.db.query(MaterialStock)
-
-        if search:
-            query = query.filter(
-                MaterialStock.material_id.ilike(f"%{search}%") |
-                MaterialStock.material_description.ilike(f"%{search}%")
-            )
-
-        total = query.count()
-        items = query.offset(skip).limit(limit).all()
-
-        return items, total
+        return self.repository.list_stocks(skip, limit, search)
 
     def update_material_stock(
         self,
@@ -83,62 +67,120 @@ class InventoryService:
             db_material_stock.update_available()
 
         if material_stock.reserved is not None:
-            db_material_stock.reserved = material_stock.reserved
-            db_material_stock.update_available()
+            try:
+                db_material_stock.reserved = material_stock.reserved
+                db_material_stock.update_available()
+            except ValueError as e:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=str(e)
+                )
 
-        try:
-            self.db.commit()
-            self.db.refresh(db_material_stock)
-            return db_material_stock
-        except ValueError as e:
-            self.db.rollback()
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=str(e)
-            )
+        return self.repository.update(db_material_stock)
 
-    def delete_material_stock(self, material_id: str):
+    def delete_material_stock(self, material_id: str) -> None:
         """Malzeme stok kaydını siler"""
         material_stock = self.get_material_stock(material_id)
-        self.db.delete(material_stock)
-        self.db.commit()
+        self.repository.delete(material_stock)
+
+    def get_low_stock_materials(self, threshold: float = 10.0) -> List[MaterialStock]:
+        """Düşük stoklu malzemeleri getirir"""
+        return self.repository.get_low_stock_materials(threshold)
 
     def adjust_stock(
         self,
         material_id: str,
         quantity_change: float,
-        is_reserved: bool = False
+        is_reserved: bool = False,
+        notes: Optional[str] = None
     ) -> MaterialStock:
         """Stok miktarını artırır veya azaltır"""
         material_stock = self.get_material_stock(material_id)
 
         try:
             if is_reserved:
-                new_reserved = material_stock.reserved + quantity_change
+                previous_quantity = material_stock.reserved
+                new_reserved = previous_quantity + quantity_change
                 if new_reserved < 0:
                     raise ValueError("Reserved quantity cannot be negative")
                 material_stock.reserved = new_reserved
             else:
-                new_quantity = material_stock.quantity + quantity_change
+                previous_quantity = material_stock.quantity
+                new_quantity = previous_quantity + quantity_change
                 if new_quantity < material_stock.reserved:
                     raise ValueError(
                         "Total quantity cannot be less than reserved quantity")
                 material_stock.quantity = new_quantity
 
             material_stock.update_available()
-            self.db.commit()
-            self.db.refresh(material_stock)
-            return material_stock
+            updated_stock = self.repository.update(material_stock)
+
+            # Stok hareketi kaydı oluştur
+            self.repository.create_stock_history(
+                material_id=material_id,
+                quantity_change=quantity_change,
+                is_reserved=is_reserved,
+                previous_quantity=previous_quantity,
+                new_quantity=new_reserved if is_reserved else new_quantity,
+                notes=notes
+            )
+
+            return updated_stock
 
         except ValueError as e:
-            self.db.rollback()
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=str(e)
             )
 
-    def get_low_stock_materials(self, threshold: float = 10.0) -> list[MaterialStock]:
-        """Düşük stoklu malzemeleri getirir"""
-        return self.db.query(MaterialStock).filter(
-            MaterialStock.available <= threshold
-        ).all()
+    def get_stock_trend(self, material_id: str, days: int) -> List[Dict]:
+        """Stok trend verilerini getirir"""
+        # Başlangıç tarihini hesapla
+        end_date = datetime.utcnow()
+        start_date = end_date - timedelta(days=days)
+
+        # Stok hareketlerini getir
+        stock_movements = self.repository.get_stock_history(
+            material_id=material_id,
+            start_date=start_date,
+            end_date=end_date
+        )
+
+        # Günlük değişimleri hesapla
+        daily_stocks = {}
+        current_stock = self.get_material_stock(material_id)
+
+        # Her gün için veri oluştur
+        current_date = start_date
+        while current_date <= end_date:
+            date_str = current_date.strftime('%Y-%m-%d')
+            daily_stocks[date_str] = {
+                'date': current_date.isoformat(),
+                'quantity': current_stock.quantity,
+                'reserved': current_stock.reserved,
+                'available': current_stock.available
+            }
+            current_date += timedelta(days=1)
+
+        # Değişimleri uygula
+        for movement in stock_movements:
+            date_str = movement.created_at.strftime('%Y-%m-%d')
+            if date_str in daily_stocks:
+                if movement.is_reserved:
+                    daily_stocks[date_str]['reserved'] = movement.new_quantity
+                    daily_stocks[date_str]['available'] = (
+                        daily_stocks[date_str]['quantity'] -
+                        movement.new_quantity
+                    )
+                else:
+                    daily_stocks[date_str]['quantity'] = movement.new_quantity
+                    daily_stocks[date_str]['available'] = (
+                        movement.new_quantity -
+                        daily_stocks[date_str]['reserved']
+                    )
+
+        # Listeye çevir ve sırala
+        trend_data = list(daily_stocks.values())
+        trend_data.sort(key=lambda x: x['date'])
+
+        return trend_data
