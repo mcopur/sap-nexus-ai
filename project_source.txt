@@ -7409,6 +7409,13 @@ export interface StockHistory {
   notes?: string;
 }
 
+export interface StockTrendData {
+  date: string;          // ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
+  quantity: number;      // Toplam stok miktarı
+  reserved: number;      // Rezerve edilen miktar  
+  available: number;     // Kullanılabilir miktar (quantity - reserved)
+ }
+ 
 export interface PaginatedResponse<T> {
   items: T[];
   total: number;
@@ -7648,29 +7655,30 @@ body {
 --- Start of frontend/app/inventory/page.tsx ---
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useInventoryStore } from "@/store/inventory";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+ Table,
+ TableBody,
+ TableCell,
+ TableHead,
+ TableHeader,
+ TableRow,
 } from "@/components/ui/table";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+ Card,
+ CardContent,
+ CardDescription,
+ CardHeader,
+ CardTitle,
 } from "@/components/ui/card";
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
+ Alert,
+ AlertDescription,
+ AlertTitle,
 } from "@/components/ui/alert";
 import { Plus, Search, AlertTriangle } from "lucide-react";
 import { CreateStockDialog } from "@/components/inventory/create-stock-dialog";
@@ -7679,198 +7687,188 @@ import { StockActions } from "@/components/inventory/stock-actions";
 const PAGE_SIZE = 10;
 
 export default function InventoryPage() {
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const { items, total, loading, lowStockItems, fetchStocks, fetchLowStocks } = useInventoryStore();
+ const [search, setSearch] = useState("");
+ const [page, setPage] = useState(1);
+ const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+ const { items, total, loading, lowStockItems, fetchStocks, fetchLowStocks } = useInventoryStore();
 
-  // Stok listesini ve düşük stok uyarılarını yükle
-  useEffect(() => {
-    fetchStocks({
-      skip: (page - 1) * PAGE_SIZE,
-      limit: PAGE_SIZE,
-      search: search || undefined,
-    });
-    fetchLowStocks();
-  }, [fetchStocks, fetchLowStocks, page, search]);
+ useEffect(() => {
+   fetchStocks({
+     skip: (page - 1) * PAGE_SIZE,
+     limit: PAGE_SIZE,
+     search: search || undefined,
+   });
+   fetchLowStocks();
+ }, [fetchStocks, fetchLowStocks, page, search]);
 
-  const totalPages = Math.ceil(total / PAGE_SIZE);
+ const totalPages = Math.ceil(total / PAGE_SIZE);
 
-  const handleSearch = (value: string) => {
-    setSearch(value);
-    setPage(1);
-  };
+ const handleSearch = (value: string) => {
+   setSearch(value);
+   setPage(1);
+ };
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
+ const handlePageChange = (newPage: number) => {
+   setPage(newPage);
+ };
 
-  return (
-    <div className="space-y-4">
-      {/* Düşük Stok Uyarıları */}
-      {lowStockItems.length > 0 && (
-        <Alert variant="warning">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Düşük Stok Uyarısı</AlertTitle>
-          <AlertDescription>
-            {lowStockItems.length} adet ürünün stok seviyesi kritik seviyenin altında.
-          </AlertDescription>
-        </Alert>
-      )}
+ return (
+   <div className="space-y-4">
+     {lowStockItems.length > 0 && (
+       <Alert variant="warning">
+         <AlertTriangle className="h-4 w-4" />
+         <AlertTitle>Düşük Stok Uyarısı</AlertTitle>
+         <AlertDescription>
+           {lowStockItems.length} adet ürünün stok seviyesi kritik seviyenin altında.
+         </AlertDescription>
+       </Alert>
+     )}
 
-      {/* Ana Stok Yönetimi Kartı */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle>Stok Yönetimi</CardTitle>
-              <CardDescription>
-                Tüm malzeme stok bilgilerini görüntüleyip yönetebilirsiniz.
-              </CardDescription>
-            </div>
-            <Button onClick={() => setIsCreateDialogOpen(true)}>
-              <Plus className="mr-2 h-4 w-4" />
-              Yeni Stok
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {/* Arama Alanı */}
-          <div className="flex items-center space-x-2 mb-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Malzeme ID veya açıklama ile arama yapın..."
-                value={search}
-                onChange={(e) => handleSearch(e.target.value)}
-                className="pl-8"
-              />
-            </div>
-          </div>
+     <Card>
+       <CardHeader>
+         <div className="flex items-center justify-between">
+           <div>
+             <CardTitle>Stok Yönetimi</CardTitle>
+             <CardDescription>
+               Tüm malzeme stok bilgilerini görüntüleyip yönetebilirsiniz.
+             </CardDescription>
+           </div>
+           <Button onClick={() => setIsCreateDialogOpen(true)}>
+             <Plus className="mr-2 h-4 w-4" />
+             Yeni Stok
+           </Button>
+         </div>
+       </CardHeader>
+       <CardContent>
+         <div className="flex items-center space-x-2 mb-4">
+           <div className="relative flex-1">
+             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+             <Input
+               placeholder="Malzeme ID veya açıklama ile arama yapın..."
+               value={search}
+               onChange={(e) => handleSearch(e.target.value)}
+               className="pl-8"
+             />
+           </div>
+         </div>
 
-          {/* Stok Tablosu */}
-          <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Malzeme ID</TableHead>
-                  <TableHead>Açıklama</TableHead>
-                  <TableHead className="text-right">Miktar</TableHead>
-                  <TableHead className="text-right">Rezerve</TableHead>
-                  <TableHead className="text-right">Kullanılabilir</TableHead>
-                  <TableHead className="w-[100px]"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {loading ? (
-                  <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8">
-                      Yükleniyor...
-                    </TableCell>
-                  </TableRow>
-                ) : items.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8">
-                      {search 
-                        ? "Arama sonucu bulunamadı" 
-                        : "Henüz stok kaydı bulunmuyor"}
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  items.map((stock) => (
-                    <TableRow key={stock.id}>
-                      <TableCell className="font-medium">
-                        {stock.material_id}
-                      </TableCell>
-                      <TableCell>{stock.material_description || "-"}</TableCell>
-                      <TableCell className="text-right">{stock.quantity}</TableCell>
-                      <TableCell className="text-right">{stock.reserved}</TableCell>
-                      <TableCell className="text-right">{stock.available}</TableCell>
-                      <TableCell>
-                        <StockActions stock={stock} />
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </div>
+         <div className="rounded-md border">
+           <Table>
+             <TableHeader>
+               <TableRow>
+                 <TableHead>Malzeme ID</TableHead>
+                 <TableHead>Açıklama</TableHead>
+                 <TableHead className="text-right">Miktar</TableHead>
+                 <TableHead className="text-right">Rezerve</TableHead>
+                 <TableHead className="text-right">Kullanılabilir</TableHead>
+                 <TableHead className="w-[100px]"></TableHead>
+               </TableRow>
+             </TableHeader>
+             <TableBody>
+               {loading ? (
+                 <TableRow>
+                   <TableCell colSpan={6} className="text-center py-8">
+                     Yükleniyor...
+                   </TableCell>
+                 </TableRow>
+               ) : items.length === 0 ? (
+                 <TableRow>
+                   <TableCell colSpan={6} className="text-center py-8">
+                     {search 
+                       ? "Arama sonucu bulunamadı" 
+                       : "Henüz stok kaydı bulunmuyor"}
+                   </TableCell>
+                 </TableRow>
+               ) : (
+                 items.map((stock) => (
+                   <TableRow key={stock.id}>
+                     <TableCell className="font-medium">
+                       <Link 
+                         href={`/inventory/${stock.material_id}`}
+                         className="hover:underline"
+                       >
+                         {stock.material_id}
+                       </Link>
+                     </TableCell>
+                     <TableCell>{stock.material_description || "-"}</TableCell>
+                     <TableCell className="text-right">{stock.quantity}</TableCell>
+                     <TableCell className="text-right">{stock.reserved}</TableCell>
+                     <TableCell className="text-right">{stock.available}</TableCell>
+                     <TableCell>
+                       <StockActions stock={stock} />
+                     </TableCell>
+                   </TableRow>
+                 ))
+               )}
+             </TableBody>
+           </Table>
+         </div>
 
-          {/* Pagination */}
-          {!loading && items.length > 0 && (
-            <div className="flex items-center justify-between py-4">
-              <div className="text-sm text-muted-foreground">
-                Toplam {total} kayıt
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handlePageChange(page - 1)}
-                  disabled={page === 1}
-                >
-                  Önceki
-                </Button>
-                <div className="text-sm">
-                  Sayfa {page} / {totalPages}
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handlePageChange(page + 1)}
-                  disabled={page === totalPages}
-                >
-                  Sonraki
-                </Button>
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+         {!loading && items.length > 0 && (
+           <div className="flex items-center justify-between py-4">
+             <div className="text-sm text-muted-foreground">
+               Toplam {total} kayıt
+             </div>
+             <div className="flex items-center space-x-2">
+               <Button
+                 variant="outline"
+                 size="sm"
+                 onClick={() => handlePageChange(page - 1)}
+                 disabled={page === 1}
+               >
+                 Önceki
+               </Button>
+               <div className="text-sm">
+                 Sayfa {page} / {totalPages}
+               </div>
+               <Button
+                 variant="outline"
+                 size="sm"
+                 onClick={() => handlePageChange(page + 1)}
+                 disabled={page === totalPages}
+               >
+                 Sonraki
+               </Button>
+             </div>
+           </div>
+         )}
+       </CardContent>
+     </Card>
 
-      {/* Yeni Stok Oluşturma Dialog'u */}
-      <CreateStockDialog 
-        open={isCreateDialogOpen}
-        onOpenChange={setIsCreateDialogOpen}
-      />
-    </div>
-  );
+     <CreateStockDialog 
+       open={isCreateDialogOpen}
+       onOpenChange={setIsCreateDialogOpen}
+     />
+   </div>
+ );
 }
 --- End of frontend/app/inventory/page.tsx ---
 
 --- Start of frontend/app/inventory/[materialId]/page.tsx ---
 "use client";
 
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useInventoryStore } from "@/store/inventory";
 import { StockHistory } from "@/components/inventory/stock-history";
 import { StockTrendChart } from "@/components/inventory/stock-trend-chart";
 import { StockActions } from "@/components/inventory/stock-actions";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertTriangle, ArrowLeft, Package, History, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
 interface StockDetailPageProps {
-  params: {
-    materialId: string;
-  };
+  params: Promise<{ materialId: string }>;
 }
 
 export default function StockDetailPage({ params }: StockDetailPageProps) {
-  const { selectedStock, loading, error, fetchStockHistory } = useInventoryStore();
-  const { getMaterialStock } = useInventoryStore();
+  const resolvedParams = use(params);
+  const { selectedStock, loading, error, getMaterialStock } = useInventoryStore();
 
   useEffect(() => {
-    getMaterialStock(params.materialId);
-  }, [getMaterialStock, params.materialId]);
+    getMaterialStock(resolvedParams.materialId);
+  }, [getMaterialStock, resolvedParams.materialId]);
 
   if (loading) {
     return <div className="flex items-center justify-center h-96">Yükleniyor...</div>;
@@ -7960,13 +7958,13 @@ export default function StockDetailPage({ params }: StockDetailPageProps) {
         </CardHeader>
         <CardContent className="p-0">
           <div className="h-[400px]">
-            <StockTrendChart materialId={selectedStock.material_id} />
+            <StockTrendChart materialId={resolvedParams.materialId} />
           </div>
         </CardContent>
       </Card>
 
       {/* Stock History */}
-      <StockHistory materialId={selectedStock.material_id} />
+      <StockHistory materialId={resolvedParams.materialId} />
     </div>
   );
 }
@@ -9401,7 +9399,7 @@ export function CreateStockDialog({ open, onOpenChange }: CreateStockDialogProps
 --- Start of frontend/components/inventory/stock-trend-chart.tsx ---
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useCallback } from "react";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import {
@@ -9413,44 +9411,32 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-interface StockTrendData {
-  date: string;
-  quantity: number;
-  reserved: number;
-  available: number;
-}
+import { useInventoryStore } from "@/store/inventory";
 
 interface StockTrendChartProps {
   materialId: string;
 }
 
 export function StockTrendChart({ materialId }: StockTrendChartProps) {
-  const [data, setData] = useState<StockTrendData[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { stockTrend, loading, error, fetchStockTrend } = useInventoryStore();
+
+  const loadStockTrend = useCallback(async () => {
+    await fetchStockTrend(materialId);
+  }, [materialId, fetchStockTrend]);
 
   useEffect(() => {
-    const fetchTrendData = async () => {
-      try {
-        const response = await fetch(`/api/v1/inventory/${materialId}/trend`);
-        if (!response.ok) throw new Error("Trend verisi alınamadı");
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error("Trend verisi yüklenirken hata:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTrendData();
-  }, [materialId]);
+    loadStockTrend();
+  }, [loadStockTrend]);
 
   if (loading) {
-    return <div className="flex items-center justify-center h-full">Yükleniyor...</div>;
+    return (
+      <div className="flex items-center justify-center h-full">
+        Yükleniyor...
+      </div>
+    );
   }
 
-  if (data.length === 0) {
+  if (stockTrend.length === 0) {
     return (
       <div className="flex items-center justify-center h-full text-muted-foreground">
         Trend verisi bulunamadı
@@ -9469,7 +9455,7 @@ export function StockTrendChart({ materialId }: StockTrendChartProps) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
-        data={data}
+        data={stockTrend}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
         <defs>
@@ -9495,7 +9481,9 @@ export function StockTrendChart({ materialId }: StockTrendChartProps) {
         <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
         <Tooltip
           formatter={formatValue}
-          labelFormatter={(label) => format(new Date(label), "dd MMMM yyyy", { locale: tr })}
+          labelFormatter={(label) =>
+            format(new Date(label), "dd MMMM yyyy", { locale: tr })
+          }
         />
         <Area
           type="monotone"
@@ -9528,6 +9516,7 @@ export function StockTrendChart({ materialId }: StockTrendChartProps) {
     </ResponsiveContainer>
   );
 }
+
 --- End of frontend/components/inventory/stock-trend-chart.tsx ---
 
 --- Start of frontend/components/inventory/stock-actions.tsx ---
@@ -9631,146 +9620,145 @@ export function StockActions({ stock }: StockActionsProps) {
 }
 --- End of frontend/components/inventory/stock-actions.tsx ---
 
---- Start of frontend/components/inventory/inventory-detail.tsx ---
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { AlertCircle, Package, TrendingUp, History } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import Papa from 'papaparse';
+--- Start of frontend/components/inventory/stock-history.tsx ---
+"use client";
 
-const InventoryDetail = ({ materialId }) => {
-  const [materialData, setMaterialData] = useState(null);
-  const [stockHistory, setStockHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+import { useCallback, useEffect } from "react";
+import { format } from "date-fns";
+import { tr } from "date-fns/locale";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import { useInventoryStore } from "@/store/inventory";
+
+interface StockHistoryProps {
+  materialId: string;
+}
+
+const formatDate = (dateString: string) => {
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return "Geçersiz tarih";
+    }
+    return format(date, "dd MMM yyyy HH:mm", { locale: tr });
+  } catch {
+    return "Geçersiz tarih";
+  }
+};
+
+export function StockHistory({ materialId }: StockHistoryProps) {
+  const { stockHistory, loading, error, fetchStockHistory } =
+    useInventoryStore();
+
+  const loadStockHistory = useCallback(async () => {
+    await fetchStockHistory(materialId);
+  }, [materialId, fetchStockHistory]);
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        // Load material details
-        const materialFile = await window.fs.readFile('MATERIAL_LIST_.xlsx');
-        const stockFile = await window.fs.readFile('STOCK_.xlsx');
-        
-        // Process data and set states
-        // Note: This is a placeholder - we'll need to implement proper XLSX parsing
-        setMaterialData({
-          id: materialId,
-          name: "Sample Material",
-          category: "Raw Materials",
-          unit: "KG",
-          currentStock: 1500,
-          reservedStock: 300,
-          availableStock: 1200,
-          minStock: 500,
-          maxStock: 2000
-        });
-
-        // Sample stock history data
-        setStockHistory([
-          { date: '2024-01', quantity: 1200 },
-          { date: '2024-02', quantity: 1350 },
-          { date: '2024-03', quantity: 1500 }
-        ]);
-
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to load inventory data');
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, [materialId]);
+    loadStockHistory();
+  }, [loadStockHistory]);
 
   if (loading) {
-    return <div className="flex items-center justify-center h-96">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-48">Yükleniyor...</div>
+    );
   }
 
-  if (error) {
+  if (stockHistory.length === 0) {
     return (
-      <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
+      <Card>
+        <CardHeader>
+          <CardTitle>Stok Hareketleri</CardTitle>
+          <CardDescription>Stok hareket geçmişi</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-center h-48 text-muted-foreground">
+            Stok hareketi bulunamadı
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header Section */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">{materialData.name}</h1>
-        <div className="flex gap-2">
-          {/* Add action buttons here */}
-        </div>
-      </div>
-
-      {/* Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Current Stock</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{materialData.currentStock} {materialData.unit}</div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Reserved Stock</CardTitle>
-            <History className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{materialData.reservedStock} {materialData.unit}</div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Available Stock</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{materialData.availableStock} {materialData.unit}</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Stock Trend Chart */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Stock Trend</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-96">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={stockHistory}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="quantity" 
-                  stroke="#2563eb" 
-                  strokeWidth={2}
-                  dot={{ r: 4 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Stok Hareketleri</CardTitle>
+        <CardDescription>Stok hareket geçmişi</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Tarih</TableHead>
+              <TableHead>İşlem Tipi</TableHead>
+              <TableHead className="text-right">Miktar Değişimi</TableHead>
+              <TableHead className="text-right">Önceki Miktar</TableHead>
+              <TableHead className="text-right">Yeni Miktar</TableHead>
+              <TableHead>Notlar</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {stockHistory.map((entry) => (
+              <TableRow key={entry.id}>
+                <TableCell>{formatDate(entry.created_at)}</TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-2">
+                    {entry.quantity_change > 0 ? (
+                      <ArrowUp className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <ArrowDown className="w-4 h-4 text-red-500" />
+                    )}
+                    {entry.is_reserved
+                      ? "Rezerve"
+                      : entry.quantity_change > 0
+                      ? "Giriş"
+                      : "Çıkış"}
+                  </div>
+                </TableCell>
+                <TableCell className="text-right font-medium">
+                  <span
+                    className={
+                      entry.quantity_change > 0
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }
+                  >
+                    {entry.quantity_change > 0 ? "+" : ""}
+                    {entry.quantity_change}
+                  </span>
+                </TableCell>
+                <TableCell className="text-right">
+                  {entry.previous_quantity}
+                </TableCell>
+                <TableCell className="text-right">
+                  {entry.new_quantity}
+                </TableCell>
+                <TableCell>{entry.notes || "-"}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
-};
+}
 
-export default InventoryDetail;
---- End of frontend/components/inventory/inventory-detail.tsx ---
+--- End of frontend/components/inventory/stock-history.tsx ---
 
 --- Start of frontend/components/inventory/adjust-stock-dialog.tsx ---
 "use client";
@@ -9995,7 +9983,8 @@ import {
   MaterialStockCreate, 
   MaterialStockUpdate,
   StockHistory,
-  PaginatedResponse 
+  PaginatedResponse, 
+  StockTrendData
 } from '@/types/inventory';
 
 // API URL'i env'den al
@@ -10009,7 +9998,10 @@ interface InventoryState {
   error: string | null;
   selectedStock: MaterialStock | null;
   lowStockItems: MaterialStock[];
+  stockTrend: StockTrendData[];
   stockHistory: StockHistory[];
+  getMaterialStock: (materialId: string) => Promise<void>;
+
   
   // Actions
   fetchStocks: (params?: { 
@@ -10018,6 +10010,7 @@ interface InventoryState {
     search?: string;
   }) => Promise<void>;
   fetchLowStocks: (threshold?: number) => Promise<void>;
+  fetchStockTrend: (materialId: string) => Promise<void>;
   fetchStockHistory: (materialId: string) => Promise<void>;
   createStock: (data: MaterialStockCreate) => Promise<void>;
   updateStock: (materialId: string, data: MaterialStockUpdate) => Promise<void>;
@@ -10041,8 +10034,8 @@ export const useInventoryStore = create<InventoryState>()(
       error: null,
       selectedStock: null,
       lowStockItems: [],
-      stockHistory: [],
-
+      stockTrend: [],
+      stockHistory: [], 
       // Actions
       fetchStocks: async (params) => {
         set({ loading: true, error: null });
@@ -10079,20 +10072,47 @@ export const useInventoryStore = create<InventoryState>()(
         }
       },
 
-      fetchStockHistory: async (materialId: string) => {
+      fetchStockTrend: async (materialId: string) => {
+        const { loading, stockTrend } = get(); 
+        if (!materialId || loading) return;    
+        
+        if (stockTrend.length > 0) return;
+      
         set({ loading: true, error: null });
         try {
-          const response = await fetch(`${API_URL}/inventory/${materialId}/history`);
-          if (!response.ok) throw new Error('Stok geçmişi alınamadı');
+          const response = await fetch(`${API_URL}/inventory/${materialId}/trend`);
+          if (!response.ok) throw new Error('Trend verisi alınamadı');
           
-          const data: StockHistory[] = await response.json();
-          set({ stockHistory: data });
+          const data: StockTrendData[] = await response.json();
+          set({ stockTrend: data });
         } catch (error) {
           set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
         } finally {
           set({ loading: false });
         }
       },
+      
+
+      fetchStockHistory: async (materialId: string) => {
+        const { loading, stockHistory } = get(); 
+        if (!materialId || loading) return; 
+      
+        if (stockHistory.length > 0) return;
+      
+        set({ loading: true, error: null });      
+        try {
+          const response = await fetch(`${API_URL}/inventory/${materialId}/history`);
+          if (!response.ok) throw new Error('Geçmiş verisi alınamadı');
+      
+          const data: StockHistory[] = await response.json();
+          set({ stockHistory: data });            
+        } catch (error) {
+          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+        } finally {
+          set({ loading: false });                
+        }
+      },
+      
 
       createStock: async (data) => {
         set({ loading: true, error: null });
@@ -10176,6 +10196,21 @@ export const useInventoryStore = create<InventoryState>()(
       },
 
       setSelectedStock: (stock) => set({ selectedStock: stock }),
+
+      getMaterialStock: async (materialId: string) => {
+        set({ loading: true, error: null });
+        try {
+          const response = await fetch(`${API_URL}/inventory/${materialId}`);
+          if (!response.ok) throw new Error('Stok detayı alınamadı');
+          
+          const data: MaterialStock = await response.json();
+          set({ selectedStock: data });
+        } catch (error) {
+          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+        } finally {
+          set({ loading: false });
+        }
+      },
     }),
     { name: 'inventory-store' }
   )
@@ -10577,11 +10612,10 @@ api_router.include_router(
 --- End of backend/app/api/v1/api.py ---
 
 --- Start of backend/app/api/v1/inventory.py ---
-# app/api/v1/inventory.py
+from datetime import datetime
 from fastapi import APIRouter, Depends, Query, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import Optional, List
-
 from app.db.session import get_db
 from app.services.inventory import InventoryService
 from app.models.inventory import (
@@ -10589,33 +10623,23 @@ from app.models.inventory import (
     MaterialStockUpdate,
     MaterialStockRead,
     MaterialStockReadList,
-    StockTrendResponse
+    StockTrendResponse,
+    StockHistoryResponse
 )
 
 router = APIRouter()
 
-# GET /api/v1/inventory/
-
 
 @router.get("/", response_model=MaterialStockReadList)
 async def list_material_stocks(
-    skip: int = Query(0, ge=0, description="Skip first N records"),
-    limit: int = Query(100, ge=1, le=1000,
-                       description="Limit the number of records"),
-    search: Optional[str] = Query(
-        None, description="Search in material_id or description"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=1000),
+    search: Optional[str] = Query(None),
     db: Session = Depends(get_db)
 ):
-    """
-    Malzeme stok listesini getirir.
-    - Sayfalama için skip ve limit parametreleri kullanılabilir
-    - Arama için search parametresi kullanılabilir (material_id veya description içinde arar)
-    """
     inventory_service = InventoryService(db)
     items, total = inventory_service.list_material_stocks(skip, limit, search)
     return MaterialStockReadList(items=items, total=total)
-
-# GET /api/v1/inventory/{material_id}
 
 
 @router.get("/{material_id}", response_model=MaterialStockRead)
@@ -10623,13 +10647,8 @@ async def get_material_stock(
     material_id: str,
     db: Session = Depends(get_db)
 ):
-    """
-    Belirli bir malzemenin stok bilgilerini getirir.
-    """
     inventory_service = InventoryService(db)
     return inventory_service.get_material_stock(material_id)
-
-# POST /api/v1/inventory/
 
 
 @router.post("/", response_model=MaterialStockRead, status_code=status.HTTP_201_CREATED)
@@ -10637,13 +10656,8 @@ async def create_material_stock(
     material_stock: MaterialStockCreate,
     db: Session = Depends(get_db)
 ):
-    """
-    Yeni bir malzeme stok kaydı oluşturur.
-    """
     inventory_service = InventoryService(db)
     return inventory_service.create_material_stock(material_stock)
-
-# PUT /api/v1/inventory/{material_id}
 
 
 @router.put("/{material_id}", response_model=MaterialStockRead)
@@ -10652,13 +10666,8 @@ async def update_material_stock(
     material_stock: MaterialStockUpdate,
     db: Session = Depends(get_db)
 ):
-    """
-    Var olan bir malzeme stok kaydını günceller.
-    """
     inventory_service = InventoryService(db)
     return inventory_service.update_material_stock(material_id, material_stock)
-
-# DELETE /api/v1/inventory/{material_id}
 
 
 @router.delete("/{material_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -10666,68 +10675,71 @@ async def delete_material_stock(
     material_id: str,
     db: Session = Depends(get_db)
 ):
-    """
-    Bir malzeme stok kaydını siler.
-    """
     inventory_service = InventoryService(db)
     inventory_service.delete_material_stock(material_id)
-
-# POST /api/v1/inventory/{material_id}/adjust
 
 
 @router.post("/{material_id}/adjust", response_model=MaterialStockRead)
 async def adjust_stock(
     material_id: str,
-    quantity_change: float = Query(
-        ...,
-        description="Stok değişim miktarı (pozitif: artış, negatif: azalış)"
-    ),
-    is_reserved: bool = Query(
-        False,
-        description="True: rezerve stok üzerinde işlem yapar, False: toplam stok üzerinde işlem yapar"
-    ),
+    quantity_change: float = Query(...),
+    is_reserved: bool = Query(False),
+    notes: str = Query(""),
     db: Session = Depends(get_db)
 ):
-    """
-    Stok miktarını artırır veya azaltır.
-    - quantity_change: Pozitif değer stok artışı, negatif değer stok azalışı anlamına gelir
-    - is_reserved: True ise rezerve stok üzerinde, False ise toplam stok üzerinde işlem yapar
-    """
     inventory_service = InventoryService(db)
-    return inventory_service.adjust_stock(material_id, quantity_change, is_reserved)
-
-# GET /api/v1/inventory/low-stock
+    return inventory_service.adjust_stock(material_id, quantity_change, is_reserved, notes)
 
 
 @router.get("/low-stock/list", response_model=List[MaterialStockRead])
 async def get_low_stock_materials(
-    threshold: float = Query(
-        10.0,
-        ge=0,
-        description="Düşük stok eşik değeri"
-    ),
+    threshold: float = Query(10.0, ge=0),
     db: Session = Depends(get_db)
 ):
-    """
-    Düşük stoklu malzemeleri listeler.
-    - threshold: Bu değerin altındaki kullanılabilir stoka sahip malzemeler listelenir
-    """
     inventory_service = InventoryService(db)
     return inventory_service.get_low_stock_materials(threshold)
 
 
-@router.get("/{material_id}/trend", response_model=List[StockTrendResponse])
+@router.get("/{material_id}/trend")
 async def get_stock_trend(
     material_id: str,
-    days: int = Query(30, ge=1, le=365, description="Kaç günlük trend verisi"),
+    days: int = Query(30, ge=1, le=365),
     db: Session = Depends(get_db)
 ):
-    """
-    Belirli bir malzeme için stok trend verilerini getirir.
-    - days: Kaç günlük veri getirileceği (varsayılan: 30, max: 365)
-    """
-    inventory_service = InventoryService(db)
-    return inventory_service.get_stock_trend(material_id, days)
+    # Test verisi
+    from datetime import datetime, timedelta
+    test_data = []
+    base_quantity = 100
+    for i in range(days):
+        date = datetime.now() - timedelta(days=i)
+        test_data.append({
+            "date": date.isoformat(),
+            "quantity": base_quantity,
+            "reserved": base_quantity * 0.2,
+            "available": base_quantity * 0.8
+        })
+    return test_data
+
+
+@router.get("/{material_id}/history")
+async def get_stock_history(
+    material_id: str,
+    limit: int = Query(100, ge=1, le=1000),
+    db: Session = Depends(get_db)
+):
+    # Test verisi
+    test_history = [
+        {
+            "id": "1",
+            "date": datetime.now().isoformat(),
+            "type": "IN",
+            "quantity": 100,
+            "description": "Initial stock",
+            "reference": "REF001"
+        }
+    ]
+    return test_history
+
 --- End of backend/app/api/v1/inventory.py ---
 
 --- Start of backend/app/services/__init__.py ---
@@ -10744,7 +10756,10 @@ from typing import Dict, Optional, Tuple, List
 from app.models.inventory import (
     MaterialStock,
     MaterialStockCreate,
-    MaterialStockUpdate
+    MaterialStockUpdate,
+    StockTrendResponse,
+    StockHistoryResponse,
+    StockHistory
 )
 from app.repositories.inventory import InventoryRepository
 
@@ -10754,7 +10769,6 @@ class InventoryService:
         self.repository = InventoryRepository(db)
 
     def create_material_stock(self, material_stock: MaterialStockCreate) -> MaterialStock:
-        """Yeni malzeme stok kaydı oluşturur"""
         try:
             db_material_stock = MaterialStock(
                 material_id=material_stock.material_id,
@@ -10770,7 +10784,6 @@ class InventoryService:
             )
 
     def get_material_stock(self, material_id: str) -> MaterialStock:
-        """Malzeme stok bilgisini getirir"""
         material_stock = self.repository.get_by_material_id(material_id)
         if not material_stock:
             raise HTTPException(
@@ -10785,7 +10798,6 @@ class InventoryService:
         limit: int = 100,
         search: Optional[str] = None
     ) -> Tuple[List[MaterialStock], int]:
-        """Malzeme stok listesini getirir"""
         return self.repository.list_stocks(skip, limit, search)
 
     def update_material_stock(
@@ -10793,7 +10805,6 @@ class InventoryService:
         material_id: str,
         material_stock: MaterialStockUpdate
     ) -> MaterialStock:
-        """Malzeme stok bilgilerini günceller"""
         db_material_stock = self.get_material_stock(material_id)
 
         if material_stock.material_description is not None:
@@ -10816,12 +10827,10 @@ class InventoryService:
         return self.repository.update(db_material_stock)
 
     def delete_material_stock(self, material_id: str) -> None:
-        """Malzeme stok kaydını siler"""
         material_stock = self.get_material_stock(material_id)
         self.repository.delete(material_stock)
 
     def get_low_stock_materials(self, threshold: float = 10.0) -> List[MaterialStock]:
-        """Düşük stoklu malzemeleri getirir"""
         return self.repository.get_low_stock_materials(threshold)
 
     def adjust_stock(
@@ -10831,7 +10840,6 @@ class InventoryService:
         is_reserved: bool = False,
         notes: Optional[str] = None
     ) -> MaterialStock:
-        """Stok miktarını artırır veya azaltır"""
         material_stock = self.get_material_stock(material_id)
 
         try:
@@ -10852,7 +10860,6 @@ class InventoryService:
             material_stock.update_available()
             updated_stock = self.repository.update(material_stock)
 
-            # Stok hareketi kaydı oluştur
             self.repository.create_stock_history(
                 material_id=material_id,
                 quantity_change=quantity_change,
@@ -10870,57 +10877,50 @@ class InventoryService:
                 detail=str(e)
             )
 
-    def get_stock_trend(self, material_id: str, days: int) -> List[Dict]:
-        """Stok trend verilerini getirir"""
-        # Başlangıç tarihini hesapla
+    def get_stock_trend(self, material_id: str, days: int = 30) -> List[StockTrendResponse]:
         end_date = datetime.utcnow()
         start_date = end_date - timedelta(days=days)
 
-        # Stok hareketlerini getir
         stock_movements = self.repository.get_stock_history(
             material_id=material_id,
             start_date=start_date,
             end_date=end_date
         )
 
-        # Günlük değişimleri hesapla
-        daily_stocks = {}
         current_stock = self.get_material_stock(material_id)
+        daily_stocks = {}
 
-        # Her gün için veri oluştur
         current_date = start_date
         while current_date <= end_date:
-            date_str = current_date.strftime('%Y-%m-%d')
-            daily_stocks[date_str] = {
-                'date': current_date.isoformat(),
-                'quantity': current_stock.quantity,
-                'reserved': current_stock.reserved,
-                'available': current_stock.available
-            }
+            daily_stocks[current_date.date()] = StockTrendResponse(
+                date=current_date,
+                quantity=current_stock.quantity,
+                reserved=current_stock.reserved,
+                available=current_stock.available
+            )
             current_date += timedelta(days=1)
 
-        # Değişimleri uygula
         for movement in stock_movements:
-            date_str = movement.created_at.strftime('%Y-%m-%d')
-            if date_str in daily_stocks:
+            date = movement.created_at.date()
+            if date in daily_stocks:
+                stock = daily_stocks[date]
                 if movement.is_reserved:
-                    daily_stocks[date_str]['reserved'] = movement.new_quantity
-                    daily_stocks[date_str]['available'] = (
-                        daily_stocks[date_str]['quantity'] -
-                        movement.new_quantity
-                    )
+                    stock.reserved = movement.new_quantity
+                    stock.available = stock.quantity - movement.new_quantity
                 else:
-                    daily_stocks[date_str]['quantity'] = movement.new_quantity
-                    daily_stocks[date_str]['available'] = (
-                        movement.new_quantity -
-                        daily_stocks[date_str]['reserved']
-                    )
+                    stock.quantity = movement.new_quantity
+                    stock.available = movement.new_quantity - stock.reserved
 
-        # Listeye çevir ve sırala
-        trend_data = list(daily_stocks.values())
-        trend_data.sort(key=lambda x: x['date'])
+        return list(daily_stocks.values())
 
-        return trend_data
+    def get_stock_history(self, material_id: str, limit: int = 100) -> List[StockHistoryResponse]:
+        return [
+            StockHistoryResponse.from_orm(record)
+            for record in self.repository.get_stock_history_paginated(
+                material_id=material_id,
+                limit=limit
+            )
+        ]
 
 --- End of backend/app/services/inventory.py ---
 
