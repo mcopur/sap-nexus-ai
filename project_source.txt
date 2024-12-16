@@ -201,6 +201,7 @@ export default {
         "@reduxjs/toolkit": "^2.5.0",
         "@tanstack/react-table": "^8.20.6",
         "axios": "^1.7.9",
+        "chart.js": "^4.4.7",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "date-fns": "^4.1.0",
@@ -208,6 +209,7 @@ export default {
         "next": "15.1.0",
         "next-themes": "^0.4.4",
         "react": "^19.0.0",
+        "react-chartjs-2": "^5.2.0",
         "react-dom": "^19.0.0",
         "react-redux": "^9.2.0",
         "recharts": "^2.15.0",
@@ -231,6 +233,7 @@ export default {
       "version": "5.2.0",
       "resolved": "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz",
       "integrity": "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==",
+      "dev": true,
       "engines": {
         "node": ">=10"
       },
@@ -825,6 +828,7 @@ export default {
       "version": "8.0.2",
       "resolved": "https://registry.npmjs.org/@isaacs/cliui/-/cliui-8.0.2.tgz",
       "integrity": "sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==",
+      "dev": true,
       "dependencies": {
         "string-width": "^5.1.2",
         "string-width-cjs": "npm:string-width@^4.2.0",
@@ -841,6 +845,7 @@ export default {
       "version": "0.3.8",
       "resolved": "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.8.tgz",
       "integrity": "sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==",
+      "dev": true,
       "dependencies": {
         "@jridgewell/set-array": "^1.2.1",
         "@jridgewell/sourcemap-codec": "^1.4.10",
@@ -854,6 +859,7 @@ export default {
       "version": "3.1.2",
       "resolved": "https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz",
       "integrity": "sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==",
+      "dev": true,
       "engines": {
         "node": ">=6.0.0"
       }
@@ -862,6 +868,7 @@ export default {
       "version": "1.2.1",
       "resolved": "https://registry.npmjs.org/@jridgewell/set-array/-/set-array-1.2.1.tgz",
       "integrity": "sha512-R8gLRTZeyp03ymzP/6Lil/28tGeGEzhx1q2k703KGWRAI1VdvPIXdG70VJc2pAMw3NA6JKL5hhFu1sJX0Mnn/A==",
+      "dev": true,
       "engines": {
         "node": ">=6.0.0"
       }
@@ -869,16 +876,23 @@ export default {
     "node_modules/@jridgewell/sourcemap-codec": {
       "version": "1.5.0",
       "resolved": "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.0.tgz",
-      "integrity": "sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ=="
+      "integrity": "sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==",
+      "dev": true
     },
     "node_modules/@jridgewell/trace-mapping": {
       "version": "0.3.25",
       "resolved": "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.25.tgz",
       "integrity": "sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==",
+      "dev": true,
       "dependencies": {
         "@jridgewell/resolve-uri": "^3.1.0",
         "@jridgewell/sourcemap-codec": "^1.4.14"
       }
+    },
+    "node_modules/@kurkle/color": {
+      "version": "0.3.4",
+      "resolved": "https://registry.npmjs.org/@kurkle/color/-/color-0.3.4.tgz",
+      "integrity": "sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w=="
     },
     "node_modules/@next/env": {
       "version": "15.1.0",
@@ -1018,6 +1032,7 @@ export default {
       "version": "2.1.5",
       "resolved": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz",
       "integrity": "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==",
+      "dev": true,
       "dependencies": {
         "@nodelib/fs.stat": "2.0.5",
         "run-parallel": "^1.1.9"
@@ -1030,6 +1045,7 @@ export default {
       "version": "2.0.5",
       "resolved": "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz",
       "integrity": "sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==",
+      "dev": true,
       "engines": {
         "node": ">= 8"
       }
@@ -1038,6 +1054,7 @@ export default {
       "version": "1.2.8",
       "resolved": "https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz",
       "integrity": "sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==",
+      "dev": true,
       "dependencies": {
         "@nodelib/fs.scandir": "2.1.5",
         "fastq": "^1.6.0"
@@ -1059,6 +1076,7 @@ export default {
       "version": "0.11.0",
       "resolved": "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz",
       "integrity": "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==",
+      "dev": true,
       "optional": true,
       "engines": {
         "node": ">=14"
@@ -2296,7 +2314,7 @@ export default {
       "version": "19.0.1",
       "resolved": "https://registry.npmjs.org/@types/react/-/react-19.0.1.tgz",
       "integrity": "sha512-YW6614BDhqbpR5KtUYzTA+zlA7nayzJRA9ljz9CQoxthR0sDisYZLuvSMsil36t4EH/uAt8T52Xb4sVw17G+SQ==",
-      "devOptional": true,
+      "dev": true,
       "dependencies": {
         "csstype": "^3.0.2"
       }
@@ -2305,7 +2323,7 @@ export default {
       "version": "19.0.2",
       "resolved": "https://registry.npmjs.org/@types/react-dom/-/react-dom-19.0.2.tgz",
       "integrity": "sha512-c1s+7TKFaDRRxr1TxccIX2u7sfCnc3RxkVyBIUA2lCpyqCF+QoAwQ/CBg7bsMdVwP120HEH143VQezKtef5nCg==",
-      "devOptional": true,
+      "dev": true,
       "peerDependencies": {
         "@types/react": "^19.0.0"
       }
@@ -2580,6 +2598,7 @@ export default {
       "version": "6.1.0",
       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-6.1.0.tgz",
       "integrity": "sha512-7HSX4QQb4CspciLpVFwyRe79O3xsIZDDLER21kERQ71oaPodF8jL725AgJMFAYbooIqolJoRLuM81SpeUkpkvA==",
+      "dev": true,
       "engines": {
         "node": ">=12"
       },
@@ -2591,6 +2610,7 @@ export default {
       "version": "4.3.0",
       "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz",
       "integrity": "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==",
+      "dev": true,
       "dependencies": {
         "color-convert": "^2.0.1"
       },
@@ -2604,12 +2624,14 @@ export default {
     "node_modules/any-promise": {
       "version": "1.3.0",
       "resolved": "https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz",
-      "integrity": "sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A=="
+      "integrity": "sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==",
+      "dev": true
     },
     "node_modules/anymatch": {
       "version": "3.1.3",
       "resolved": "https://registry.npmjs.org/anymatch/-/anymatch-3.1.3.tgz",
       "integrity": "sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==",
+      "dev": true,
       "dependencies": {
         "normalize-path": "^3.0.0",
         "picomatch": "^2.0.4"
@@ -2621,7 +2643,8 @@ export default {
     "node_modules/arg": {
       "version": "5.0.2",
       "resolved": "https://registry.npmjs.org/arg/-/arg-5.0.2.tgz",
-      "integrity": "sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg=="
+      "integrity": "sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==",
+      "dev": true
     },
     "node_modules/argparse": {
       "version": "2.0.1",
@@ -2856,12 +2879,14 @@ export default {
     "node_modules/balanced-match": {
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",
-      "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="
+      "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==",
+      "dev": true
     },
     "node_modules/binary-extensions": {
       "version": "2.3.0",
       "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.3.0.tgz",
       "integrity": "sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==",
+      "dev": true,
       "engines": {
         "node": ">=8"
       },
@@ -2883,6 +2908,7 @@ export default {
       "version": "3.0.3",
       "resolved": "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz",
       "integrity": "sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==",
+      "dev": true,
       "dependencies": {
         "fill-range": "^7.1.1"
       },
@@ -2961,6 +2987,7 @@ export default {
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/camelcase-css/-/camelcase-css-2.0.1.tgz",
       "integrity": "sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==",
+      "dev": true,
       "engines": {
         "node": ">= 6"
       }
@@ -3000,10 +3027,22 @@ export default {
         "url": "https://github.com/chalk/chalk?sponsor=1"
       }
     },
+    "node_modules/chart.js": {
+      "version": "4.4.7",
+      "resolved": "https://registry.npmjs.org/chart.js/-/chart.js-4.4.7.tgz",
+      "integrity": "sha512-pwkcKfdzTMAU/+jNosKhNL2bHtJc/sSmYgVbuGTEDhzkrhmyihmP7vUc/5ZK9WopidMDHNe3Wm7jOd/WhuHWuw==",
+      "dependencies": {
+        "@kurkle/color": "^0.3.0"
+      },
+      "engines": {
+        "pnpm": ">=8"
+      }
+    },
     "node_modules/chokidar": {
       "version": "3.6.0",
       "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-3.6.0.tgz",
       "integrity": "sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==",
+      "dev": true,
       "dependencies": {
         "anymatch": "~3.1.2",
         "braces": "~3.0.2",
@@ -3027,6 +3066,7 @@ export default {
       "version": "5.1.2",
       "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz",
       "integrity": "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==",
+      "dev": true,
       "dependencies": {
         "is-glob": "^4.0.1"
       },
@@ -3075,6 +3115,7 @@ export default {
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",
       "integrity": "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==",
+      "devOptional": true,
       "dependencies": {
         "color-name": "~1.1.4"
       },
@@ -3085,7 +3126,8 @@ export default {
     "node_modules/color-name": {
       "version": "1.1.4",
       "resolved": "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz",
-      "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA=="
+      "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",
+      "devOptional": true
     },
     "node_modules/color-string": {
       "version": "1.9.1",
@@ -3112,6 +3154,7 @@ export default {
       "version": "4.1.1",
       "resolved": "https://registry.npmjs.org/commander/-/commander-4.1.1.tgz",
       "integrity": "sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==",
+      "dev": true,
       "engines": {
         "node": ">= 6"
       }
@@ -3126,6 +3169,7 @@ export default {
       "version": "7.0.6",
       "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz",
       "integrity": "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==",
+      "dev": true,
       "dependencies": {
         "path-key": "^3.1.0",
         "shebang-command": "^2.0.0",
@@ -3139,6 +3183,7 @@ export default {
       "version": "3.0.0",
       "resolved": "https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz",
       "integrity": "sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==",
+      "dev": true,
       "bin": {
         "cssesc": "bin/cssesc"
       },
@@ -3414,12 +3459,14 @@ export default {
     "node_modules/didyoumean": {
       "version": "1.2.2",
       "resolved": "https://registry.npmjs.org/didyoumean/-/didyoumean-1.2.2.tgz",
-      "integrity": "sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw=="
+      "integrity": "sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==",
+      "dev": true
     },
     "node_modules/dlv": {
       "version": "1.1.3",
       "resolved": "https://registry.npmjs.org/dlv/-/dlv-1.1.3.tgz",
-      "integrity": "sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA=="
+      "integrity": "sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==",
+      "dev": true
     },
     "node_modules/doctrine": {
       "version": "2.1.0",
@@ -3459,12 +3506,14 @@ export default {
     "node_modules/eastasianwidth": {
       "version": "0.2.0",
       "resolved": "https://registry.npmjs.org/eastasianwidth/-/eastasianwidth-0.2.0.tgz",
-      "integrity": "sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA=="
+      "integrity": "sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==",
+      "dev": true
     },
     "node_modules/emoji-regex": {
       "version": "9.2.2",
       "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-9.2.2.tgz",
-      "integrity": "sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg=="
+      "integrity": "sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==",
+      "dev": true
     },
     "node_modules/enhanced-resolve": {
       "version": "5.17.1",
@@ -4142,6 +4191,7 @@ export default {
       "version": "1.17.1",
       "resolved": "https://registry.npmjs.org/fastq/-/fastq-1.17.1.tgz",
       "integrity": "sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==",
+      "dev": true,
       "dependencies": {
         "reusify": "^1.0.4"
       }
@@ -4162,6 +4212,7 @@ export default {
       "version": "7.1.1",
       "resolved": "https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz",
       "integrity": "sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==",
+      "dev": true,
       "dependencies": {
         "to-regex-range": "^5.0.1"
       },
@@ -4236,6 +4287,7 @@ export default {
       "version": "3.3.0",
       "resolved": "https://registry.npmjs.org/foreground-child/-/foreground-child-3.3.0.tgz",
       "integrity": "sha512-Ld2g8rrAyMYFXBhEqMz8ZAHBi4J4uS1i/CxGMDnjyFWddMXLVcDp051DZfu+t7+ab7Wv6SMqpWmyFIj5UbfFvg==",
+      "dev": true,
       "dependencies": {
         "cross-spawn": "^7.0.0",
         "signal-exit": "^4.0.1"
@@ -4264,6 +4316,7 @@ export default {
       "version": "2.3.3",
       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
       "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
+      "dev": true,
       "hasInstallScript": true,
       "optional": true,
       "os": [
@@ -4277,6 +4330,7 @@ export default {
       "version": "1.1.2",
       "resolved": "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz",
       "integrity": "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==",
+      "dev": true,
       "funding": {
         "url": "https://github.com/sponsors/ljharb"
       }
@@ -4373,6 +4427,7 @@ export default {
       "version": "10.4.5",
       "resolved": "https://registry.npmjs.org/glob/-/glob-10.4.5.tgz",
       "integrity": "sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==",
+      "dev": true,
       "dependencies": {
         "foreground-child": "^3.1.0",
         "jackspeak": "^3.1.2",
@@ -4392,6 +4447,7 @@ export default {
       "version": "6.0.2",
       "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-6.0.2.tgz",
       "integrity": "sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==",
+      "dev": true,
       "dependencies": {
         "is-glob": "^4.0.3"
       },
@@ -4403,6 +4459,7 @@ export default {
       "version": "2.0.1",
       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.1.tgz",
       "integrity": "sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==",
+      "dev": true,
       "dependencies": {
         "balanced-match": "^1.0.0"
       }
@@ -4411,6 +4468,7 @@ export default {
       "version": "9.0.5",
       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-9.0.5.tgz",
       "integrity": "sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==",
+      "dev": true,
       "dependencies": {
         "brace-expansion": "^2.0.1"
       },
@@ -4549,6 +4607,7 @@ export default {
       "version": "2.0.2",
       "resolved": "https://registry.npmjs.org/hasown/-/hasown-2.0.2.tgz",
       "integrity": "sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==",
+      "dev": true,
       "dependencies": {
         "function-bind": "^1.1.2"
       },
@@ -4685,6 +4744,7 @@ export default {
       "version": "2.1.0",
       "resolved": "https://registry.npmjs.org/is-binary-path/-/is-binary-path-2.1.0.tgz",
       "integrity": "sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==",
+      "dev": true,
       "dependencies": {
         "binary-extensions": "^2.0.0"
       },
@@ -4733,6 +4793,7 @@ export default {
       "version": "2.15.1",
       "resolved": "https://registry.npmjs.org/is-core-module/-/is-core-module-2.15.1.tgz",
       "integrity": "sha512-z0vtXSwucUJtANQWldhbtbt7BnL0vxiFjIdDLAatwhDYty2bad6s+rijD6Ri4YuYJubLzIJLUidCh09e1djEVQ==",
+      "dev": true,
       "dependencies": {
         "hasown": "^2.0.2"
       },
@@ -4780,6 +4841,7 @@ export default {
       "version": "2.1.1",
       "resolved": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
       "integrity": "sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==",
+      "dev": true,
       "engines": {
         "node": ">=0.10.0"
       }
@@ -4803,6 +4865,7 @@ export default {
       "version": "3.0.0",
       "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz",
       "integrity": "sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==",
+      "dev": true,
       "engines": {
         "node": ">=8"
       }
@@ -4826,6 +4889,7 @@ export default {
       "version": "4.0.3",
       "resolved": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",
       "integrity": "sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==",
+      "dev": true,
       "dependencies": {
         "is-extglob": "^2.1.1"
       },
@@ -4861,6 +4925,7 @@ export default {
       "version": "7.0.0",
       "resolved": "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz",
       "integrity": "sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==",
+      "dev": true,
       "engines": {
         "node": ">=0.12.0"
       }
@@ -5026,7 +5091,8 @@ export default {
     "node_modules/isexe": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
-      "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw=="
+      "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==",
+      "dev": true
     },
     "node_modules/iterator.prototype": {
       "version": "1.1.4",
@@ -5049,6 +5115,7 @@ export default {
       "version": "3.4.3",
       "resolved": "https://registry.npmjs.org/jackspeak/-/jackspeak-3.4.3.tgz",
       "integrity": "sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==",
+      "dev": true,
       "dependencies": {
         "@isaacs/cliui": "^8.0.2"
       },
@@ -5063,6 +5130,7 @@ export default {
       "version": "1.21.6",
       "resolved": "https://registry.npmjs.org/jiti/-/jiti-1.21.6.tgz",
       "integrity": "sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==",
+      "dev": true,
       "bin": {
         "jiti": "bin/jiti.js"
       }
@@ -5173,6 +5241,7 @@ export default {
       "version": "3.1.3",
       "resolved": "https://registry.npmjs.org/lilconfig/-/lilconfig-3.1.3.tgz",
       "integrity": "sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==",
+      "dev": true,
       "engines": {
         "node": ">=14"
       },
@@ -5183,7 +5252,8 @@ export default {
     "node_modules/lines-and-columns": {
       "version": "1.2.4",
       "resolved": "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz",
-      "integrity": "sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg=="
+      "integrity": "sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==",
+      "dev": true
     },
     "node_modules/locate-path": {
       "version": "6.0.0",
@@ -5225,7 +5295,8 @@ export default {
     "node_modules/lru-cache": {
       "version": "10.4.3",
       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-10.4.3.tgz",
-      "integrity": "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ=="
+      "integrity": "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==",
+      "dev": true
     },
     "node_modules/lucide-react": {
       "version": "0.468.0",
@@ -5248,6 +5319,7 @@ export default {
       "version": "1.4.1",
       "resolved": "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz",
       "integrity": "sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==",
+      "dev": true,
       "engines": {
         "node": ">= 8"
       }
@@ -5256,6 +5328,7 @@ export default {
       "version": "4.0.8",
       "resolved": "https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz",
       "integrity": "sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==",
+      "dev": true,
       "dependencies": {
         "braces": "^3.0.3",
         "picomatch": "^2.3.1"
@@ -5308,6 +5381,7 @@ export default {
       "version": "7.1.2",
       "resolved": "https://registry.npmjs.org/minipass/-/minipass-7.1.2.tgz",
       "integrity": "sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==",
+      "dev": true,
       "engines": {
         "node": ">=16 || 14 >=14.17"
       }
@@ -5322,6 +5396,7 @@ export default {
       "version": "2.7.0",
       "resolved": "https://registry.npmjs.org/mz/-/mz-2.7.0.tgz",
       "integrity": "sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==",
+      "dev": true,
       "dependencies": {
         "any-promise": "^1.0.0",
         "object-assign": "^4.0.1",
@@ -5444,6 +5519,7 @@ export default {
       "version": "3.0.0",
       "resolved": "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz",
       "integrity": "sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==",
+      "dev": true,
       "engines": {
         "node": ">=0.10.0"
       }
@@ -5460,6 +5536,7 @@ export default {
       "version": "3.0.0",
       "resolved": "https://registry.npmjs.org/object-hash/-/object-hash-3.0.0.tgz",
       "integrity": "sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==",
+      "dev": true,
       "engines": {
         "node": ">= 6"
       }
@@ -5616,7 +5693,8 @@ export default {
     "node_modules/package-json-from-dist": {
       "version": "1.0.1",
       "resolved": "https://registry.npmjs.org/package-json-from-dist/-/package-json-from-dist-1.0.1.tgz",
-      "integrity": "sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw=="
+      "integrity": "sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==",
+      "dev": true
     },
     "node_modules/parent-module": {
       "version": "1.0.1",
@@ -5643,6 +5721,7 @@ export default {
       "version": "3.1.1",
       "resolved": "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz",
       "integrity": "sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==",
+      "dev": true,
       "engines": {
         "node": ">=8"
       }
@@ -5650,12 +5729,14 @@ export default {
     "node_modules/path-parse": {
       "version": "1.0.7",
       "resolved": "https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz",
-      "integrity": "sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw=="
+      "integrity": "sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==",
+      "dev": true
     },
     "node_modules/path-scurry": {
       "version": "1.11.1",
       "resolved": "https://registry.npmjs.org/path-scurry/-/path-scurry-1.11.1.tgz",
       "integrity": "sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==",
+      "dev": true,
       "dependencies": {
         "lru-cache": "^10.2.0",
         "minipass": "^5.0.0 || ^6.0.2 || ^7.0.0"
@@ -5676,6 +5757,7 @@ export default {
       "version": "2.3.1",
       "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz",
       "integrity": "sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==",
+      "dev": true,
       "engines": {
         "node": ">=8.6"
       },
@@ -5687,6 +5769,7 @@ export default {
       "version": "2.3.0",
       "resolved": "https://registry.npmjs.org/pify/-/pify-2.3.0.tgz",
       "integrity": "sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==",
+      "dev": true,
       "engines": {
         "node": ">=0.10.0"
       }
@@ -5695,6 +5778,7 @@ export default {
       "version": "4.0.6",
       "resolved": "https://registry.npmjs.org/pirates/-/pirates-4.0.6.tgz",
       "integrity": "sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==",
+      "dev": true,
       "engines": {
         "node": ">= 6"
       }
@@ -5712,6 +5796,7 @@ export default {
       "version": "8.4.49",
       "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.4.49.tgz",
       "integrity": "sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==",
+      "dev": true,
       "funding": [
         {
           "type": "opencollective",
@@ -5739,6 +5824,7 @@ export default {
       "version": "15.1.0",
       "resolved": "https://registry.npmjs.org/postcss-import/-/postcss-import-15.1.0.tgz",
       "integrity": "sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==",
+      "dev": true,
       "dependencies": {
         "postcss-value-parser": "^4.0.0",
         "read-cache": "^1.0.0",
@@ -5755,6 +5841,7 @@ export default {
       "version": "4.0.1",
       "resolved": "https://registry.npmjs.org/postcss-js/-/postcss-js-4.0.1.tgz",
       "integrity": "sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==",
+      "dev": true,
       "dependencies": {
         "camelcase-css": "^2.0.1"
       },
@@ -5773,6 +5860,7 @@ export default {
       "version": "4.0.2",
       "resolved": "https://registry.npmjs.org/postcss-load-config/-/postcss-load-config-4.0.2.tgz",
       "integrity": "sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==",
+      "dev": true,
       "funding": [
         {
           "type": "opencollective",
@@ -5807,6 +5895,7 @@ export default {
       "version": "6.2.0",
       "resolved": "https://registry.npmjs.org/postcss-nested/-/postcss-nested-6.2.0.tgz",
       "integrity": "sha512-HQbt28KulC5AJzG+cZtj9kvKB93CFCdLvog1WFLf1D+xmMvPGlBstkpTEZfK5+AN9hfJocyBFCNiqyS48bpgzQ==",
+      "dev": true,
       "funding": [
         {
           "type": "opencollective",
@@ -5831,6 +5920,7 @@ export default {
       "version": "6.1.2",
       "resolved": "https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.1.2.tgz",
       "integrity": "sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==",
+      "dev": true,
       "dependencies": {
         "cssesc": "^3.0.0",
         "util-deprecate": "^1.0.2"
@@ -5842,7 +5932,8 @@ export default {
     "node_modules/postcss-value-parser": {
       "version": "4.2.0",
       "resolved": "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz",
-      "integrity": "sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ=="
+      "integrity": "sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==",
+      "dev": true
     },
     "node_modules/prelude-ls": {
       "version": "1.2.1",
@@ -5881,6 +5972,7 @@ export default {
       "version": "1.2.3",
       "resolved": "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz",
       "integrity": "sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==",
+      "dev": true,
       "funding": [
         {
           "type": "github",
@@ -5902,6 +5994,15 @@ export default {
       "integrity": "sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==",
       "engines": {
         "node": ">=0.10.0"
+      }
+    },
+    "node_modules/react-chartjs-2": {
+      "version": "5.2.0",
+      "resolved": "https://registry.npmjs.org/react-chartjs-2/-/react-chartjs-2-5.2.0.tgz",
+      "integrity": "sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==",
+      "peerDependencies": {
+        "chart.js": "^4.1.1",
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
       }
     },
     "node_modules/react-dom": {
@@ -5961,6 +6062,7 @@ export default {
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/read-cache/-/read-cache-1.0.0.tgz",
       "integrity": "sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==",
+      "dev": true,
       "dependencies": {
         "pify": "^2.3.0"
       }
@@ -5969,6 +6071,7 @@ export default {
       "version": "3.6.0",
       "resolved": "https://registry.npmjs.org/readdirp/-/readdirp-3.6.0.tgz",
       "integrity": "sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==",
+      "dev": true,
       "dependencies": {
         "picomatch": "^2.2.1"
       },
@@ -6092,6 +6195,7 @@ export default {
       "version": "1.22.8",
       "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.22.8.tgz",
       "integrity": "sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==",
+      "dev": true,
       "dependencies": {
         "is-core-module": "^2.13.0",
         "path-parse": "^1.0.7",
@@ -6126,6 +6230,7 @@ export default {
       "version": "1.0.4",
       "resolved": "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz",
       "integrity": "sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==",
+      "dev": true,
       "engines": {
         "iojs": ">=1.0.0",
         "node": ">=0.10.0"
@@ -6135,6 +6240,7 @@ export default {
       "version": "1.2.0",
       "resolved": "https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz",
       "integrity": "sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==",
+      "dev": true,
       "funding": [
         {
           "type": "github",
@@ -6281,6 +6387,7 @@ export default {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
       "integrity": "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==",
+      "dev": true,
       "dependencies": {
         "shebang-regex": "^3.0.0"
       },
@@ -6292,6 +6399,7 @@ export default {
       "version": "3.0.0",
       "resolved": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz",
       "integrity": "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==",
+      "dev": true,
       "engines": {
         "node": ">=8"
       }
@@ -6372,6 +6480,7 @@ export default {
       "version": "4.1.0",
       "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz",
       "integrity": "sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==",
+      "dev": true,
       "engines": {
         "node": ">=14"
       },
@@ -6414,6 +6523,7 @@ export default {
       "version": "5.1.2",
       "resolved": "https://registry.npmjs.org/string-width/-/string-width-5.1.2.tgz",
       "integrity": "sha512-HnLOCR3vjcY8beoNLtcjZ5/nxn2afmME6lhrDrebokqMap+XbeW8n9TXpPDOqdGK5qcI3oT0GKTW6wC7EMiVqA==",
+      "dev": true,
       "dependencies": {
         "eastasianwidth": "^0.2.0",
         "emoji-regex": "^9.2.2",
@@ -6431,6 +6541,7 @@ export default {
       "version": "4.2.3",
       "resolved": "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz",
       "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",
+      "dev": true,
       "dependencies": {
         "emoji-regex": "^8.0.0",
         "is-fullwidth-code-point": "^3.0.0",
@@ -6444,6 +6555,7 @@ export default {
       "version": "5.0.1",
       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
       "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
+      "dev": true,
       "engines": {
         "node": ">=8"
       }
@@ -6451,12 +6563,14 @@ export default {
     "node_modules/string-width-cjs/node_modules/emoji-regex": {
       "version": "8.0.0",
       "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz",
-      "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="
+      "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==",
+      "dev": true
     },
     "node_modules/string-width-cjs/node_modules/strip-ansi": {
       "version": "6.0.1",
       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
       "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
+      "dev": true,
       "dependencies": {
         "ansi-regex": "^5.0.1"
       },
@@ -6574,6 +6688,7 @@ export default {
       "version": "7.1.0",
       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.1.0.tgz",
       "integrity": "sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==",
+      "dev": true,
       "dependencies": {
         "ansi-regex": "^6.0.1"
       },
@@ -6589,6 +6704,7 @@ export default {
       "version": "6.0.1",
       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
       "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
+      "dev": true,
       "dependencies": {
         "ansi-regex": "^5.0.1"
       },
@@ -6600,6 +6716,7 @@ export default {
       "version": "5.0.1",
       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
       "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
+      "dev": true,
       "engines": {
         "node": ">=8"
       }
@@ -6651,6 +6768,7 @@ export default {
       "version": "3.35.0",
       "resolved": "https://registry.npmjs.org/sucrase/-/sucrase-3.35.0.tgz",
       "integrity": "sha512-8EbVDiu9iN/nESwxeSxDKe0dunta1GOlHufmSSXxMD2z2/tMZpDMpvXQGsc+ajGo8y2uYUmixaSRUc/QPoQ0GA==",
+      "dev": true,
       "dependencies": {
         "@jridgewell/gen-mapping": "^0.3.2",
         "commander": "^4.0.0",
@@ -6684,6 +6802,7 @@ export default {
       "version": "1.0.0",
       "resolved": "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz",
       "integrity": "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==",
+      "dev": true,
       "engines": {
         "node": ">= 0.4"
       },
@@ -6704,6 +6823,7 @@ export default {
       "version": "3.4.16",
       "resolved": "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.16.tgz",
       "integrity": "sha512-TI4Cyx7gDiZ6r44ewaJmt0o6BrMCT5aK5e0rmJ/G9Xq3w7CX/5VXl/zIPEJZFUK5VEqwByyhqNPycPlvcK4ZNw==",
+      "dev": true,
       "dependencies": {
         "@alloc/quick-lru": "^5.2.0",
         "arg": "^5.0.2",
@@ -6748,6 +6868,7 @@ export default {
       "version": "3.3.2",
       "resolved": "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.2.tgz",
       "integrity": "sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==",
+      "dev": true,
       "dependencies": {
         "@nodelib/fs.stat": "^2.0.2",
         "@nodelib/fs.walk": "^1.2.3",
@@ -6763,6 +6884,7 @@ export default {
       "version": "5.1.2",
       "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz",
       "integrity": "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==",
+      "dev": true,
       "dependencies": {
         "is-glob": "^4.0.1"
       },
@@ -6783,6 +6905,7 @@ export default {
       "version": "3.3.1",
       "resolved": "https://registry.npmjs.org/thenify/-/thenify-3.3.1.tgz",
       "integrity": "sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==",
+      "dev": true,
       "dependencies": {
         "any-promise": "^1.0.0"
       }
@@ -6791,6 +6914,7 @@ export default {
       "version": "1.6.0",
       "resolved": "https://registry.npmjs.org/thenify-all/-/thenify-all-1.6.0.tgz",
       "integrity": "sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==",
+      "dev": true,
       "dependencies": {
         "thenify": ">= 3.1.0 < 4"
       },
@@ -6807,6 +6931,7 @@ export default {
       "version": "5.0.1",
       "resolved": "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz",
       "integrity": "sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==",
+      "dev": true,
       "dependencies": {
         "is-number": "^7.0.0"
       },
@@ -6829,7 +6954,8 @@ export default {
     "node_modules/ts-interface-checker": {
       "version": "0.1.13",
       "resolved": "https://registry.npmjs.org/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz",
-      "integrity": "sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA=="
+      "integrity": "sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==",
+      "dev": true
     },
     "node_modules/tsconfig-paths": {
       "version": "3.15.0",
@@ -6988,7 +7114,8 @@ export default {
     "node_modules/util-deprecate": {
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",
-      "integrity": "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
+      "integrity": "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==",
+      "dev": true
     },
     "node_modules/victory-vendor": {
       "version": "36.9.2",
@@ -7015,6 +7142,7 @@ export default {
       "version": "2.0.2",
       "resolved": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",
       "integrity": "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==",
+      "dev": true,
       "dependencies": {
         "isexe": "^2.0.0"
       },
@@ -7121,6 +7249,7 @@ export default {
       "version": "8.1.0",
       "resolved": "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-8.1.0.tgz",
       "integrity": "sha512-si7QWI6zUMq56bESFvagtmzMdGOtoxfR+Sez11Mobfc7tm+VkUckk9bW2UeffTGVUbOksxmSw0AA2gs8g71NCQ==",
+      "dev": true,
       "dependencies": {
         "ansi-styles": "^6.1.0",
         "string-width": "^5.0.1",
@@ -7138,6 +7267,7 @@ export default {
       "version": "7.0.0",
       "resolved": "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz",
       "integrity": "sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==",
+      "dev": true,
       "dependencies": {
         "ansi-styles": "^4.0.0",
         "string-width": "^4.1.0",
@@ -7154,6 +7284,7 @@ export default {
       "version": "5.0.1",
       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
       "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
+      "dev": true,
       "engines": {
         "node": ">=8"
       }
@@ -7161,12 +7292,14 @@ export default {
     "node_modules/wrap-ansi-cjs/node_modules/emoji-regex": {
       "version": "8.0.0",
       "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz",
-      "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="
+      "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==",
+      "dev": true
     },
     "node_modules/wrap-ansi-cjs/node_modules/string-width": {
       "version": "4.2.3",
       "resolved": "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz",
       "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",
+      "dev": true,
       "dependencies": {
         "emoji-regex": "^8.0.0",
         "is-fullwidth-code-point": "^3.0.0",
@@ -7180,6 +7313,7 @@ export default {
       "version": "6.0.1",
       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
       "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
+      "dev": true,
       "dependencies": {
         "ansi-regex": "^5.0.1"
       },
@@ -7191,6 +7325,7 @@ export default {
       "version": "6.2.1",
       "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.1.tgz",
       "integrity": "sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==",
+      "dev": true,
       "engines": {
         "node": ">=12"
       },
@@ -7202,6 +7337,7 @@ export default {
       "version": "2.6.1",
       "resolved": "https://registry.npmjs.org/yaml/-/yaml-2.6.1.tgz",
       "integrity": "sha512-7r0XPzioN/Q9kXBro/XPnA6kznR73DHq+GXh5ON7ZozRO6aMjbmiBuKste2wslTFkC5d1dw0GooOCepZXJ2SAg==",
+      "dev": true,
       "bin": {
         "yaml": "bin.mjs"
       },
@@ -7278,6 +7414,7 @@ export default {
     "@reduxjs/toolkit": "^2.5.0",
     "@tanstack/react-table": "^8.20.6",
     "axios": "^1.7.9",
+    "chart.js": "^4.4.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -7285,6 +7422,7 @@ export default {
     "next": "15.1.0",
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
     "recharts": "^2.15.0",
@@ -7652,6 +7790,20 @@ body {
 
 --- End of frontend/app/globals.css ---
 
+--- Start of frontend/app/dashboard/page.tsx ---
+import Dashboard from "@/components/inventory/dashboard";
+
+export default function DashboardPage() {
+  return (
+    <main className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+      <Dashboard />
+    </main>
+  );
+}
+
+--- End of frontend/app/dashboard/page.tsx ---
+
 --- Start of frontend/app/inventory/page.tsx ---
 "use client";
 
@@ -7969,6 +8121,34 @@ export default function StockDetailPage({ params }: StockDetailPageProps) {
   );
 }
 --- End of frontend/app/inventory/[materialId]/page.tsx ---
+
+--- Start of frontend/app/orders/page.tsx ---
+import OrderList from "@/components/orders/order-list";
+
+export default function OrdersPage() {
+  return (
+    <main className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Siparişler</h1>
+      <OrderList />
+    </main>
+  );
+}
+
+--- End of frontend/app/orders/page.tsx ---
+
+--- Start of frontend/app/orders/[id]/page.tsx ---
+import OrderDetail from "@/components/orders/order-detail";
+
+export default function OrderDetailPage() {
+  return (
+    <main className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Sipariş Detayı</h1>
+      <OrderDetail />
+    </main>
+  );
+}
+
+--- End of frontend/app/orders/[id]/page.tsx ---
 
 --- Start of frontend/components/theme-provider.tsx ---
 "use client"
@@ -9146,7 +9326,7 @@ import {
 const menuItems = [
   {
     title: "Dashboard",
-    href: "/",
+    href: "/dashboard",
     icon: LayoutDashboard,
   },
   {
@@ -9205,6 +9385,7 @@ export default function Sidebar() {
     </div>
   );
 }
+
 --- End of frontend/components/layout/sidebar.tsx ---
 
 --- Start of frontend/components/layout/mode-toggle.tsx ---
@@ -9249,6 +9430,160 @@ export function ModeToggle() {
   );
 }
 --- End of frontend/components/layout/mode-toggle.tsx ---
+
+--- Start of frontend/components/inventory/StockActions.tsx ---
+"use client";
+
+import { useState } from "react";
+import { useInventoryStore } from "@/store/inventory";
+import { MaterialStock } from "@/types/inventory";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Trash2, Pencil, Plus, Minus } from "lucide-react";
+
+const StockActions: React.FC = () => {
+  const { items, adjustStock, deleteStock, updateStock } = useInventoryStore();
+  const [selectedStock, setSelectedStock] = useState<MaterialStock | null>(
+    null
+  );
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [editQuantity, setEditQuantity] = useState<number>(0);
+
+  const handleIncrement = (item: MaterialStock) => {
+    adjustStock(item.material_id, 1);
+  };
+
+  const handleDecrement = (item: MaterialStock) => {
+    if (item.quantity > 0) {
+      adjustStock(item.material_id, -1);
+    }
+  };
+
+  const handleEdit = (item: MaterialStock) => {
+    setSelectedStock(item);
+    setEditQuantity(item.quantity);
+    setIsEditOpen(true);
+  };
+
+  const handleDelete = (item: MaterialStock) => {
+    setSelectedStock(item);
+    setIsDeleteOpen(true);
+  };
+
+  const confirmEdit = () => {
+    if (selectedStock) {
+      updateStock(selectedStock.material_id, { quantity: editQuantity });
+    }
+    setIsEditOpen(false);
+  };
+
+  const confirmDelete = () => {
+    if (selectedStock) {
+      deleteStock(selectedStock.material_id);
+    }
+    setIsDeleteOpen(false);
+  };
+
+  return (
+    <div className="space-y-4">
+      {items.map((item) => (
+        <div
+          key={item.material_id}
+          className="flex items-center justify-between p-4 border rounded shadow-sm"
+        >
+          <div>
+            <h3 className="font-medium">{item.material_description}</h3>
+            <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={() => handleIncrement(item)} size="icon">
+              <Plus className="w-4 h-4" />
+            </Button>
+            <Button
+              onClick={() => handleDecrement(item)}
+              size="icon"
+              variant="outline"
+            >
+              <Minus className="w-4 h-4" />
+            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  onClick={() => handleEdit(item)}
+                  size="icon"
+                  variant="secondary"
+                >
+                  <Pencil className="w-4 h-4" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Edit Stock</DialogTitle>
+                </DialogHeader>
+                <Input
+                  type="number"
+                  value={editQuantity}
+                  onChange={(e) => setEditQuantity(Number(e.target.value))}
+                />
+                <Button onClick={confirmEdit} className="mt-4">
+                  Save
+                </Button>
+              </DialogContent>
+            </Dialog>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  onClick={() => handleDelete(item)}
+                  size="icon"
+                  variant="destructive"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    Are you sure you want to delete this stock?
+                  </AlertDialogTitle>
+                </AlertDialogHeader>
+                <div className="flex gap-4 mt-4">
+                  <Button onClick={confirmDelete} variant="destructive">
+                    Delete
+                  </Button>
+                  <Button
+                    onClick={() => setIsDeleteOpen(false)}
+                    variant="outline"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default StockActions;
+
+--- End of frontend/components/inventory/StockActions.tsx ---
 
 --- Start of frontend/components/inventory/create-stock-dialog.tsx ---
 "use client";
@@ -9395,6 +9730,255 @@ export function CreateStockDialog({ open, onOpenChange }: CreateStockDialogProps
   );
 }
 --- End of frontend/components/inventory/create-stock-dialog.tsx ---
+
+--- Start of frontend/components/inventory/dashboard.tsx ---
+"use client";
+
+import React, { useEffect, useMemo } from "react";
+import { useInventoryStore } from "@/store/inventory";
+import { useOrderAnalysisStore } from "@/store/order-analysis";
+import { Card } from "@/components/ui/card";
+import { Table } from "@/components/ui/table";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
+import {
+  AlertTriangle,
+  TrendingDown,
+  History,
+  TrendingUp,
+  BarChart3,
+} from "lucide-react";
+import OrderChart from "@/components/orders/order-chart";
+
+const CRITICAL_THRESHOLD = 20;
+
+const Dashboard: React.FC = () => {
+  const {
+    items,
+    fetchStocks,
+    fetchLowStocks,
+    fetchStockHistory,
+    fetchStockTrend,
+    stockHistory,
+    lowStockItems,
+    stockTrend,
+  } = useInventoryStore();
+
+  const { analysisData, fetchOrderAnalysis } = useOrderAnalysisStore();
+
+  useEffect(() => {
+    // Fetch initial data
+    fetchStocks();
+    fetchLowStocks();
+    fetchOrderAnalysis();
+
+    if (items.length > 0) {
+      fetchStockTrend(items[0].material_id);
+      fetchStockHistory(items[0].material_id);
+    }
+  }, [
+    fetchStocks,
+    fetchLowStocks,
+    fetchStockTrend,
+    fetchStockHistory,
+    fetchOrderAnalysis,
+    items,
+  ]);
+
+  // Data Memos
+  const stockSummaryData = useMemo(() => {
+    return items.map((item) => ({
+      name: item.material_description || item.material_id,
+      Total: item.quantity,
+      Reserved: item.reserved,
+      Available: item.quantity - item.reserved,
+    }));
+  }, [items]);
+
+  const pieChartData = useMemo(() => {
+    const totalStock = items.reduce((sum, item) => sum + item.quantity, 0);
+    const reservedStock = items.reduce((sum, item) => sum + item.reserved, 0);
+    const availableStock = totalStock - reservedStock;
+
+    return [
+      { name: "Rezerve", value: reservedStock, color: "#f87171" },
+      { name: "Kullanılabilir", value: availableStock, color: "#60a5fa" },
+    ];
+  }, [items]);
+
+  const criticalStockItems = useMemo(() => {
+    return items.filter((item) => item.quantity <= CRITICAL_THRESHOLD);
+  }, [items]);
+
+  const formattedTrendData = useMemo(() => {
+    return stockTrend.map((data) => ({
+      date: new Date(data.date).toLocaleDateString(),
+      Available: data.available,
+      Reserved: data.reserved,
+    }));
+  }, [stockTrend]);
+
+  return (
+    <div className="space-y-6 p-4">
+      {/* Sipariş Analizleri */}
+      <Card className="p-4 shadow-md">
+        <h2 className="text-lg font-semibold mb-4">Sipariş Analizi</h2>
+        <OrderChart data={analysisData} />
+      </Card>
+
+      {/* Stok Özet Grafikleri */}
+      <Card className="p-4 shadow-md">
+        <h2 className="text-lg font-semibold mb-4">Stok Özet Grafikleri</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={stockSummaryData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="Total" fill="#93c5fd" name="Toplam Miktar" />
+              <Bar dataKey="Reserved" fill="#f87171" name="Rezerve Miktar" />
+              <Bar
+                dataKey="Available"
+                fill="#34d399"
+                name="Kullanılabilir Miktar"
+              />
+            </BarChart>
+          </ResponsiveContainer>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Tooltip />
+              <Legend />
+              <Pie
+                data={pieChartData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                label
+              >
+                {pieChartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </Card>
+
+      {/* Kritik Stok Seviyeleri */}
+      <Card className="p-4 shadow-md">
+        <div className="flex items-center gap-4 mb-4">
+          <TrendingDown className="w-6 h-6 text-yellow-500" />
+          <h2 className="text-lg font-semibold">Kritik Stok Seviyeleri</h2>
+        </div>
+        {criticalStockItems.length > 0 ? (
+          <ul className="list-disc list-inside text-sm text-red-600">
+            {criticalStockItems.map((item) => (
+              <li key={item.material_id}>
+                {item.material_description || item.material_id} - Mevcut:{" "}
+                {item.quantity}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-gray-500">
+            Kritik stok seviyesinde ürün bulunmamaktadır.
+          </p>
+        )}
+      </Card>
+
+      {/* Son Stok Hareketleri */}
+      <Card className="p-4 shadow-md">
+        <div className="flex items-center gap-4 mb-4">
+          <History className="w-6 h-6 text-blue-500" />
+          <h2 className="text-lg font-semibold">Son Stok Hareketleri</h2>
+        </div>
+        <Table>
+          <thead>
+            <tr>
+              <th>Malzeme ID</th>
+              <th>Değişim Miktarı</th>
+              <th>Önceki Miktar</th>
+              <th>Yeni Miktar</th>
+              <th>Tarih</th>
+              <th>Not</th>
+            </tr>
+          </thead>
+          <tbody>
+            {stockHistory.length > 0 ? (
+              stockHistory.map((history) => (
+                <tr key={history.id}>
+                  <td>{history.material_id}</td>
+                  <td>
+                    {history.quantity_change > 0
+                      ? `+${history.quantity_change}`
+                      : history.quantity_change}
+                  </td>
+                  <td>{history.previous_quantity}</td>
+                  <td>{history.new_quantity}</td>
+                  <td>{new Date(history.created_at).toLocaleDateString()}</td>
+                  <td>{history.notes || "-"}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="text-center text-gray-500">
+                  Henüz stok hareketi bulunmamaktadır.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+      </Card>
+
+      {/* Stok Trend Analizi */}
+      <Card className="p-4 shadow-md">
+        <div className="flex items-center gap-4 mb-4">
+          <TrendingUp className="w-6 h-6 text-green-500" />
+          <h2 className="text-lg font-semibold">Stok Trend Analizi</h2>
+        </div>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={formattedTrendData}>
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="Available"
+              stroke="#34d399"
+              name="Kullanılabilir"
+            />
+            <Line
+              type="monotone"
+              dataKey="Reserved"
+              stroke="#f87171"
+              name="Rezerve"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </Card>
+    </div>
+  );
+};
+
+export default Dashboard;
+
+--- End of frontend/components/inventory/dashboard.tsx ---
 
 --- Start of frontend/components/inventory/stock-trend-chart.tsx ---
 "use client";
@@ -9573,11 +10157,7 @@ export function StockActions({ stock }: StockActionsProps) {
             <ArrowUpDown className="mr-2 h-4 w-4" />
             Stok Düzenle
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Edit className="mr-2 h-4 w-4" />
-            Düzenle
-          </DropdownMenuItem>
-          <DropdownMenuItem 
+          <DropdownMenuItem
             onClick={() => setIsDeleteDialogOpen(true)}
             className="text-destructive"
           >
@@ -9588,20 +10168,23 @@ export function StockActions({ stock }: StockActionsProps) {
       </DropdownMenu>
 
       {/* Stok Ayarlama Dialog'u */}
-      <AdjustStockDialog 
+      <AdjustStockDialog
         stock={stock}
         open={isAdjustDialogOpen}
         onOpenChange={setIsAdjustDialogOpen}
       />
 
       {/* Silme Onay Dialog'u */}
-      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+      <AlertDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Stok Kaydını Sil</AlertDialogTitle>
             <AlertDialogDescription>
-              &quot;{stock.material_id}&quot; kodlu malzeme kaydını silmek istediğinize emin misiniz?
-              Bu işlem geri alınamaz.
+              &quot;{stock.material_id}&quot; kodlu malzeme kaydını silmek
+              istediğinize emin misiniz? Bu işlem geri alınamaz.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -9618,6 +10201,7 @@ export function StockActions({ stock }: StockActionsProps) {
     </>
   );
 }
+
 --- End of frontend/components/inventory/stock-actions.tsx ---
 
 --- Start of frontend/components/inventory/stock-history.tsx ---
@@ -9917,6 +10501,510 @@ export function AdjustStockDialog({
 }
 --- End of frontend/components/inventory/adjust-stock-dialog.tsx ---
 
+--- Start of frontend/components/orders/order-create-dialog.tsx ---
+"use client";
+
+import React, { useState } from "react";
+import { useOrderStore } from "@/store/order";
+import { useInventoryStore } from "@/store/inventory";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const OrderCreateDialog: React.FC = () => {
+  const { createOrder } = useOrderStore();
+  const { adjustStock } = useInventoryStore();
+  const [customerName, setCustomerName] = useState("");
+  const [items, setItems] = useState([{ material_id: "", quantity: 1 }]);
+  const [open, setOpen] = useState(false);
+
+  const handleAddItem = () => {
+    setItems([...items, { material_id: "", quantity: 1 }]);
+  };
+
+  const handleItemChange = (index: number, field: string, value: any) => {
+    const newItems = [...items];
+    newItems[index] = { ...newItems[index], [field]: value };
+    setItems(newItems);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !customerName ||
+      items.some((item) => !item.material_id || item.quantity <= 0)
+    ) {
+      alert("Lütfen tüm alanları doldurun.");
+      return;
+    }
+
+    await createOrder({ customer_name: customerName, items });
+
+    for (const item of items) {
+      await adjustStock(
+        item.material_id,
+        -item.quantity,
+        true,
+        "Sipariş oluşturma"
+      );
+    }
+
+    setOpen(false);
+    setCustomerName("");
+    setItems([{ material_id: "", quantity: 1 }]);
+    alert("Sipariş ve stok rezervasyonu başarıyla tamamlandı!");
+  };
+
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger asChild>
+        <Button variant="default">Yeni Sipariş Oluştur</Button>
+      </Dialog.Trigger>
+
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black/50 fixed inset-0" />
+        <Dialog.Content className="bg-white p-6 rounded-md shadow-lg fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full max-w-lg">
+          <Dialog.Title className="text-xl font-semibold mb-4">
+            Yeni Sipariş Oluştur
+          </Dialog.Title>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <Input
+              placeholder="Müşteri Adı"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+            />
+
+            {items.map((item, index) => (
+              <div key={index} className="flex gap-4 items-center">
+                <Input
+                  placeholder="Malzeme ID"
+                  value={item.material_id}
+                  onChange={(e) =>
+                    handleItemChange(index, "material_id", e.target.value)
+                  }
+                />
+                <Input
+                  type="number"
+                  placeholder="Miktar"
+                  value={item.quantity}
+                  onChange={(e) =>
+                    handleItemChange(
+                      index,
+                      "quantity",
+                      parseInt(e.target.value)
+                    )
+                  }
+                />
+              </div>
+            ))}
+
+            <Button type="button" onClick={handleAddItem} variant="secondary">
+              Kalem Ekle
+            </Button>
+            <div className="flex justify-end gap-2">
+              <Dialog.Close asChild>
+                <Button type="button" variant="outline">
+                  İptal
+                </Button>
+              </Dialog.Close>
+              <Button type="submit">Siparişi Kaydet</Button>
+            </div>
+          </form>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+export default OrderCreateDialog;
+
+--- End of frontend/components/orders/order-create-dialog.tsx ---
+
+--- Start of frontend/components/orders/order-list.tsx ---
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useOrderStore } from "@/store/order";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Table } from "@/components/ui/table";
+import OrderCreateDialog from "@/components/orders/order-create-dialog";
+import StatusDropdown from "@/components/orders/status-dropdown";
+import { useRouter } from "next/navigation";
+
+const OrderList: React.FC = () => {
+  const { orders, total, fetchOrders, loading } = useOrderStore();
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const router = useRouter();
+
+  useEffect(() => {
+    fetchOrders({ search, page });
+  }, [search, page, fetchOrders]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setPage(1);
+  };
+
+  return (
+    <div className="space-y-6 p-4">
+      {/* Arama ve Sipariş Oluştur */}
+      <div className="flex items-center justify-between">
+        <Input
+          placeholder="Sipariş Ara..."
+          value={search}
+          onChange={handleSearch}
+          className="w-1/3"
+        />
+        <OrderCreateDialog />
+      </div>
+
+      {/* Sipariş Tablosu */}
+      <Table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Müşteri Adı</th>
+            <th>Durum</th>
+            <th>Toplam Tutar</th>
+            <th>Tarih</th>
+            <th>Aksiyon</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading ? (
+            <tr>
+              <td colSpan={6} className="text-center">
+                Yükleniyor...
+              </td>
+            </tr>
+          ) : orders.length > 0 ? (
+            orders.map((order) => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.customer_name}</td>
+                <td>
+                  <StatusDropdown
+                    orderId={order.id}
+                    currentStatus={order.status}
+                  />
+                </td>
+                <td>{order.total_amount} ₺</td>
+                <td>{new Date(order.created_at).toLocaleDateString()}</td>
+                <td>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => router.push(`/orders/${order.id}`)}
+                  >
+                    Detay
+                  </Button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} className="text-center">
+                Sipariş bulunamadı.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
+
+      {/* Sayfalama */}
+      <div className="flex items-center justify-between">
+        <Button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+        >
+          Önceki
+        </Button>
+        <span>Sayfa {page}</span>
+        <Button
+          onClick={() => setPage((prev) => prev + 1)}
+          disabled={orders.length === 0}
+        >
+          Sonraki
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default OrderList;
+
+--- End of frontend/components/orders/order-list.tsx ---
+
+--- Start of frontend/components/orders/status-dropdown.tsx ---
+import React from "react";
+import { useOrderStore } from "@/store/order";
+
+interface StatusDropdownProps {
+  orderId: string;
+  currentStatus: string;
+}
+
+const StatusDropdown: React.FC<StatusDropdownProps> = ({
+  orderId,
+  currentStatus,
+}) => {
+  const { updateOrderStatus } = useOrderStore();
+
+  const statuses = ["Yeni", "Hazırlanıyor", "Tamamlandı"];
+
+  const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newStatus = e.target.value;
+    await updateOrderStatus(orderId, newStatus);
+  };
+
+  return (
+    <select
+      value={currentStatus}
+      onChange={handleChange}
+      className="border rounded p-1 text-sm"
+    >
+      {statuses.map((status) => (
+        <option key={status} value={status}>
+          {status}
+        </option>
+      ))}
+    </select>
+  );
+};
+
+export default StatusDropdown;
+
+--- End of frontend/components/orders/status-dropdown.tsx ---
+
+--- Start of frontend/components/orders/order-chart.tsx ---
+"use client";
+
+import React, { useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
+
+interface ChartProps {
+  data: { date: string; totalOrders: number; totalAmount: number }[];
+}
+
+const OrderChart: React.FC<ChartProps> = ({ data }) => {
+  const chartRef = useRef<HTMLCanvasElement | null>(null);
+  const chartInstance = useRef<Chart | null>(null);
+
+  useEffect(() => {
+    if (chartRef.current) {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+
+      chartInstance.current = new Chart(chartRef.current, {
+        type: "line",
+        data: {
+          labels: data.map((d) => d.date),
+          datasets: [
+            {
+              label: "Toplam Sipariş Sayısı",
+              data: data.map((d) => d.totalOrders),
+              borderColor: "rgba(75, 192, 192, 1)",
+              backgroundColor: "rgba(75, 192, 192, 0.2)",
+            },
+            {
+              label: "Toplam Tutar (₺)",
+              data: data.map((d) => d.totalAmount),
+              borderColor: "rgba(153, 102, 255, 1)",
+              backgroundColor: "rgba(153, 102, 255, 0.2)",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: "top" },
+            title: { display: true, text: "Sipariş Analizi" },
+          },
+        },
+      });
+    }
+
+    // Cleanup
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+    };
+  }, [data]);
+
+  return <canvas ref={chartRef} />;
+};
+
+export default OrderChart;
+
+--- End of frontend/components/orders/order-chart.tsx ---
+
+--- Start of frontend/components/orders/order-detail.tsx ---
+"use client";
+
+import React, { useEffect } from "react";
+import { useOrderStore } from "@/store/order";
+import { useParams } from "next/navigation";
+import { Card } from "@/components/ui/card";
+import { Table } from "@/components/ui/table";
+
+const OrderDetail: React.FC = () => {
+  const { orderDetails, fetchOrderDetails } = useOrderStore();
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetchOrderDetails(id as string);
+  }, [fetchOrderDetails, id]);
+
+  if (!orderDetails) {
+    return <p className="text-center text-gray-500">Yükleniyor...</p>;
+  }
+
+  return (
+    <div className="space-y-6 p-4">
+      {/* Sipariş Bilgisi */}
+      <Card className="p-4 shadow-md">
+        <h2 className="text-lg font-semibold mb-4">Sipariş Bilgisi</h2>
+        <div className="grid grid-cols-2 gap-4 text-sm">
+          <p>
+            <strong>Sipariş ID:</strong> {orderDetails.id}
+          </p>
+          <p>
+            <strong>Müşteri Adı:</strong> {orderDetails.customer_name}
+          </p>
+          <p>
+            <strong>Durum:</strong> {orderDetails.status}
+          </p>
+          <p>
+            <strong>Oluşturulma Tarihi:</strong>{" "}
+            {new Date(orderDetails.created_at).toLocaleDateString()}
+          </p>
+          <p>
+            <strong>Toplam Tutar:</strong> {orderDetails.total_amount} ₺
+          </p>
+        </div>
+      </Card>
+
+      {/* Sipariş Kalemleri */}
+      <Card className="p-4 shadow-md">
+        <h2 className="text-lg font-semibold mb-4">Sipariş Kalemleri</h2>
+        <Table>
+          <thead>
+            <tr>
+              <th>Malzeme ID</th>
+              <th>Açıklama</th>
+              <th>Miktar</th>
+              <th>Birim Fiyat</th>
+              <th>Toplam</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orderDetails.items.map((item) => (
+              <tr key={item.material_id}>
+                <td>{item.material_id}</td>
+                <td>{item.description}</td>
+                <td>{item.quantity}</td>
+                <td>{item.price} ₺</td>
+                <td>{item.quantity * item.price} ₺</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Card>
+    </div>
+  );
+};
+
+export default OrderDetail;
+
+--- End of frontend/components/orders/order-detail.tsx ---
+
+--- Start of frontend/components/orders/order-form.tsx ---
+"use client";
+
+import React, { useState } from "react";
+import { useOrderStore } from "@/store/order";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
+const OrderForm: React.FC = () => {
+  const { createOrder } = useOrderStore();
+  const [customerName, setCustomerName] = useState("");
+  const [items, setItems] = useState([{ material_id: "", quantity: 1 }]);
+
+  const handleAddItem = () => {
+    setItems([...items, { material_id: "", quantity: 1 }]);
+  };
+
+  const handleItemChange = (index: number, field: string, value: any) => {
+    const newItems = [...items];
+    newItems[index] = { ...newItems[index], [field]: value };
+    setItems(newItems);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !customerName ||
+      items.some((item) => !item.material_id || item.quantity <= 0)
+    ) {
+      alert("Lütfen tüm alanları doldurun.");
+      return;
+    }
+    await createOrder({ customer_name: customerName, items });
+    alert("Sipariş başarıyla oluşturuldu!");
+  };
+
+  return (
+    <Card className="p-4 space-y-6">
+      <h2 className="text-lg font-semibold">Yeni Sipariş Oluştur</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <Input
+          placeholder="Müşteri Adı"
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
+        />
+
+        {items.map((item, index) => (
+          <div key={index} className="flex gap-4 items-center">
+            <Input
+              placeholder="Malzeme ID"
+              value={item.material_id}
+              onChange={(e) =>
+                handleItemChange(index, "material_id", e.target.value)
+              }
+            />
+            <Input
+              type="number"
+              placeholder="Miktar"
+              value={item.quantity}
+              onChange={(e) =>
+                handleItemChange(index, "quantity", parseInt(e.target.value))
+              }
+            />
+          </div>
+        ))}
+
+        <Button type="button" onClick={handleAddItem} variant="secondary">
+          Kalem Ekle
+        </Button>
+        <Button type="submit" className="w-full">
+          Siparişi Kaydet
+        </Button>
+      </form>
+    </Card>
+  );
+};
+
+export default OrderForm;
+
+--- End of frontend/components/orders/order-form.tsx ---
+
 --- Start of frontend/lib/utils.ts ---
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -9976,19 +11064,20 @@ export const inventoryApi = {
 --- End of frontend/lib/api.ts ---
 
 --- Start of frontend/store/inventory.ts ---
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
-import { 
-  MaterialStock, 
-  MaterialStockCreate, 
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+import {
+  MaterialStock,
+  MaterialStockCreate,
   MaterialStockUpdate,
   StockHistory,
-  PaginatedResponse, 
-  StockTrendData
-} from '@/types/inventory';
+  PaginatedResponse,
+  StockTrendData,
+} from "@/types/inventory";
 
 // API URL'i env'den al
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8002/api/v1';
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8002/api/v1";
 
 interface InventoryState {
   // State
@@ -10002,11 +11091,10 @@ interface InventoryState {
   stockHistory: StockHistory[];
   getMaterialStock: (materialId: string) => Promise<void>;
 
-  
   // Actions
-  fetchStocks: (params?: { 
-    skip?: number; 
-    limit?: number; 
+  fetchStocks: (params?: {
+    skip?: number;
+    limit?: number;
     search?: string;
   }) => Promise<void>;
   fetchLowStocks: (threshold?: number) => Promise<void>;
@@ -10016,8 +11104,8 @@ interface InventoryState {
   updateStock: (materialId: string, data: MaterialStockUpdate) => Promise<void>;
   deleteStock: (materialId: string) => Promise<void>;
   adjustStock: (
-    materialId: string, 
-    quantityChange: number, 
+    materialId: string,
+    quantityChange: number,
     isReserved?: boolean,
     notes?: string
   ) => Promise<void>;
@@ -10035,187 +11123,421 @@ export const useInventoryStore = create<InventoryState>()(
       selectedStock: null,
       lowStockItems: [],
       stockTrend: [],
-      stockHistory: [], 
-      // Actions
+      stockHistory: [],
+
+      // Fetch all stocks with optional filters
       fetchStocks: async (params) => {
         set({ loading: true, error: null });
         try {
-          const response = await fetch(`${API_URL}/inventory?` + new URLSearchParams({
-            skip: params?.skip?.toString() || '0',
-            limit: params?.limit?.toString() || '10',
-            ...(params?.search ? { search: params.search } : {})
-          }));
-          
-          if (!response.ok) throw new Error('Stok listesi alınamadı');
-          
+          const response = await fetch(
+            `${API_URL}/inventory?` +
+              new URLSearchParams({
+                skip: params?.skip?.toString() || "0",
+                limit: params?.limit?.toString() || "10",
+                ...(params?.search ? { search: params.search } : {}),
+              })
+          );
+
+          if (!response.ok) throw new Error("Stok listesi alınamadı");
+
           const data: PaginatedResponse<MaterialStock> = await response.json();
           set({ items: data.items, total: data.total });
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
         } finally {
           set({ loading: false });
         }
       },
 
+      // Fetch low-stock items
       fetchLowStocks: async (threshold = 10) => {
         set({ loading: true, error: null });
         try {
-          const response = await fetch(`${API_URL}/inventory/low-stock/list?threshold=${threshold}`);
-          if (!response.ok) throw new Error('Düşük stok listesi alınamadı');
-          
+          const response = await fetch(
+            `${API_URL}/inventory/low-stock/list?threshold=${threshold}`
+          );
+          if (!response.ok) throw new Error("Düşük stok listesi alınamadı");
+
           const data: MaterialStock[] = await response.json();
           set({ lowStockItems: data });
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
         } finally {
           set({ loading: false });
         }
       },
 
+      // Fetch stock trend data
       fetchStockTrend: async (materialId: string) => {
-        const { loading, stockTrend } = get(); 
-        if (!materialId || loading) return;    
-        
-        if (stockTrend.length > 0) return;
-      
+        if (!materialId) return;
         set({ loading: true, error: null });
         try {
-          const response = await fetch(`${API_URL}/inventory/${materialId}/trend`);
-          if (!response.ok) throw new Error('Trend verisi alınamadı');
-          
+          const response = await fetch(
+            `${API_URL}/inventory/${materialId}/trend`
+          );
+          if (!response.ok) throw new Error("Trend verisi alınamadı");
+
           const data: StockTrendData[] = await response.json();
           set({ stockTrend: data });
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
         } finally {
           set({ loading: false });
         }
       },
-      
 
+      // Fetch stock history
       fetchStockHistory: async (materialId: string) => {
-        const { loading, stockHistory } = get(); 
-        if (!materialId || loading) return; 
-      
-        if (stockHistory.length > 0) return;
-      
-        set({ loading: true, error: null });      
+        if (!materialId) return;
+        set({ loading: true, error: null });
         try {
-          const response = await fetch(`${API_URL}/inventory/${materialId}/history`);
-          if (!response.ok) throw new Error('Geçmiş verisi alınamadı');
-      
+          const response = await fetch(
+            `${API_URL}/inventory/${materialId}/history`
+          );
+          if (!response.ok) throw new Error("Geçmiş verisi alınamadı");
+
           const data: StockHistory[] = await response.json();
-          set({ stockHistory: data });            
+          set({ stockHistory: data });
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
         } finally {
-          set({ loading: false });                
+          set({ loading: false });
         }
       },
-      
 
+      // Create a new stock entry
       createStock: async (data) => {
         set({ loading: true, error: null });
         try {
           const response = await fetch(`${API_URL}/inventory`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-          
-          if (!response.ok) throw new Error('Stok oluşturulamadı');
-          
+
+          if (!response.ok) throw new Error("Stok oluşturulamadı");
+
           await get().fetchStocks();
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
           throw error;
         } finally {
           set({ loading: false });
         }
       },
 
+      // Update existing stock
       updateStock: async (materialId, data) => {
         set({ loading: true, error: null });
         try {
           const response = await fetch(`${API_URL}/inventory/${materialId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
           });
-          
-          if (!response.ok) throw new Error('Stok güncellenemedi');
-          
+
+          if (!response.ok) throw new Error("Stok güncellenemedi");
+
           await get().fetchStocks();
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
           throw error;
         } finally {
           set({ loading: false });
         }
       },
 
+      // Delete a stock entry
       deleteStock: async (materialId) => {
         set({ loading: true, error: null });
         try {
           const response = await fetch(`${API_URL}/inventory/${materialId}`, {
-            method: 'DELETE',
+            method: "DELETE",
           });
-          
-          if (!response.ok) throw new Error('Stok silinemedi');
-          
+
+          if (!response.ok) throw new Error("Stok silinemedi");
+
           await get().fetchStocks();
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
           throw error;
         } finally {
           set({ loading: false });
         }
       },
 
-      adjustStock: async (materialId, quantityChange, isReserved = false, notes = '') => {
+      // Adjust stock quantity
+      adjustStock: async (
+        materialId,
+        quantityChange,
+        isReserved = false,
+        notes = ""
+      ) => {
         set({ loading: true, error: null });
         try {
-          const response = await fetch(`${API_URL}/inventory/${materialId}/adjust`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ quantity_change: quantityChange, is_reserved: isReserved, notes }),
-          });
-          
-          if (!response.ok) throw new Error('Stok miktarı güncellenemedi');
-          
+          const response = await fetch(
+            `${API_URL}/inventory/${materialId}/adjust`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                quantity_change: quantityChange,
+                is_reserved: isReserved,
+                notes,
+              }),
+            }
+          );
+
+          if (!response.ok) throw new Error("Stok miktarı güncellenemedi");
+
           await get().fetchStocks();
           if (get().selectedStock?.material_id === materialId) {
             await get().fetchStockHistory(materialId);
           }
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
           throw error;
         } finally {
           set({ loading: false });
         }
       },
 
+      // Set selected stock
       setSelectedStock: (stock) => set({ selectedStock: stock }),
 
+      // Fetch details of a specific material
       getMaterialStock: async (materialId: string) => {
         set({ loading: true, error: null });
         try {
           const response = await fetch(`${API_URL}/inventory/${materialId}`);
-          if (!response.ok) throw new Error('Stok detayı alınamadı');
-          
+          if (!response.ok) throw new Error("Stok detayı alınamadı");
+
           const data: MaterialStock = await response.json();
           set({ selectedStock: data });
         } catch (error) {
-          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+          set({
+            error: error instanceof Error ? error.message : "Bir hata oluştu",
+          });
         } finally {
           set({ loading: false });
         }
       },
     }),
-    { name: 'inventory-store' }
+    { name: "inventory-store" }
   )
 );
+
 --- End of frontend/store/inventory.ts ---
+
+--- Start of frontend/store/order-analysis.ts ---
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+
+interface OrderAnalysisData {
+  date: string; // Tarih (günlük/haftalık/aylık)
+  totalOrders: number; // Toplam sipariş sayısı
+  totalAmount: number; // Toplam tutar
+}
+
+interface OrderAnalysisState {
+  analysisData: OrderAnalysisData[];
+  loading: boolean;
+  error: string | null;
+  fetchOrderAnalysis: (filter?: {
+    period: "daily" | "weekly" | "monthly";
+  }) => Promise<void>;
+}
+
+export const useOrderAnalysisStore = create<OrderAnalysisState>()(
+  devtools((set) => ({
+    analysisData: [],
+    loading: false,
+    error: null,
+
+    fetchOrderAnalysis: async (filter = { period: "daily" }) => {
+      set({ loading: true, error: null });
+      try {
+        // MOCK DATA - Backend hazır olduğunda burası API çağrısıyla değiştirilecek
+        const mockData: OrderAnalysisData[] = [
+          { date: "2024-01-01", totalOrders: 15, totalAmount: 3000 },
+          { date: "2024-01-02", totalOrders: 20, totalAmount: 4000 },
+          { date: "2024-01-03", totalOrders: 10, totalAmount: 2000 },
+        ];
+        set({ analysisData: mockData });
+      } catch (error) {
+        set({
+          error:
+            error instanceof Error ? error.message : "Analiz verisi alınamadı.",
+        });
+      } finally {
+        set({ loading: false });
+      }
+    },
+  }))
+);
+
+--- End of frontend/store/order-analysis.ts ---
+
+--- Start of frontend/store/order.ts ---
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+
+interface OrderItem {
+  material_id: string;
+  description: string;
+  quantity: number;
+  price: number;
+}
+
+interface Order {
+  id: string;
+  customer_name: string;
+  status: string;
+  total_amount: number;
+  created_at: string;
+}
+
+interface OrderDetails extends Order {
+  items: OrderItem[];
+}
+
+interface OrderState {
+  orders: Order[];
+  total: number;
+  loading: boolean;
+  error: string | null;
+  orderDetails: OrderDetails | null;
+
+  fetchOrders: (params?: {
+    search?: string;
+    page?: number;
+    limit?: number;
+  }) => Promise<void>;
+  fetchOrderDetails: (orderId: string) => Promise<void>;
+  createOrder: (payload: {
+    customer_name: string;
+    items: { material_id: string; quantity: number }[];
+  }) => Promise<void>;
+  updateOrderStatus: (orderId: string, status: string) => Promise<void>;
+}
+
+export const useOrderStore = create<OrderState>()(
+  devtools((set, get) => ({
+    orders: [],
+    total: 0,
+    loading: false,
+    error: null,
+    orderDetails: null,
+
+    fetchOrders: async (params = {}) => {
+      set({ loading: true, error: null });
+      try {
+        const query = new URLSearchParams({
+          search: params.search || "",
+          page: (params.page || 1).toString(),
+          limit: (params.limit || 10).toString(),
+        });
+        const response = await fetch(
+          `http://localhost:8002/api/v1/orders?${query}`
+        );
+
+        if (!response.ok) throw new Error("Siparişler yüklenemedi.");
+
+        const data = await response.json();
+        set({ orders: data.items, total: data.total });
+      } catch (error) {
+        set({
+          error: error instanceof Error ? error.message : "Bir hata oluştu",
+        });
+      } finally {
+        set({ loading: false });
+      }
+    },
+
+    fetchOrderDetails: async (orderId: string) => {
+      set({ loading: true, error: null, orderDetails: null });
+      try {
+        const response = await fetch(
+          `http://localhost:8002/api/v1/orders/${orderId}`
+        );
+
+        if (!response.ok) throw new Error("Sipariş detayı yüklenemedi.");
+
+        const data: OrderDetails = await response.json();
+        set({ orderDetails: data });
+      } catch (error) {
+        set({
+          error: error instanceof Error ? error.message : "Bir hata oluştu",
+        });
+      } finally {
+        set({ loading: false });
+      }
+    },
+
+    createOrder: async (payload) => {
+      set({ loading: true, error: null });
+      try {
+        const response = await fetch(`http://localhost:8002/api/v1/orders`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) throw new Error("Sipariş oluşturulamadı.");
+
+        await get().fetchOrders();
+      } catch (error) {
+        set({
+          error: error instanceof Error ? error.message : "Bir hata oluştu",
+        });
+      } finally {
+        set({ loading: false });
+      }
+    },
+
+    updateOrderStatus: async (orderId, status) => {
+      set({ loading: true, error: null });
+      try {
+        const response = await fetch(
+          `http://localhost:8002/api/v1/orders/${orderId}/status`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status }),
+          }
+        );
+
+        if (!response.ok) throw new Error("Sipariş durumu güncellenemedi.");
+
+        await get().fetchOrders();
+      } catch (error) {
+        set({
+          error: error instanceof Error ? error.message : "Bir hata oluştu",
+        });
+      } finally {
+        set({ loading: false });
+      }
+    },
+  }))
+);
+
+--- End of frontend/store/order.ts ---
 
 --- Start of backend/requirements.txt ---
 alembic==1.14.0

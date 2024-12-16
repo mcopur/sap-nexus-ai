@@ -51,11 +51,7 @@ export function StockActions({ stock }: StockActionsProps) {
             <ArrowUpDown className="mr-2 h-4 w-4" />
             Stok Düzenle
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Edit className="mr-2 h-4 w-4" />
-            Düzenle
-          </DropdownMenuItem>
-          <DropdownMenuItem 
+          <DropdownMenuItem
             onClick={() => setIsDeleteDialogOpen(true)}
             className="text-destructive"
           >
@@ -66,20 +62,23 @@ export function StockActions({ stock }: StockActionsProps) {
       </DropdownMenu>
 
       {/* Stok Ayarlama Dialog'u */}
-      <AdjustStockDialog 
+      <AdjustStockDialog
         stock={stock}
         open={isAdjustDialogOpen}
         onOpenChange={setIsAdjustDialogOpen}
       />
 
       {/* Silme Onay Dialog'u */}
-      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+      <AlertDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Stok Kaydını Sil</AlertDialogTitle>
             <AlertDialogDescription>
-              &quot;{stock.material_id}&quot; kodlu malzeme kaydını silmek istediğinize emin misiniz?
-              Bu işlem geri alınamaz.
+              &quot;{stock.material_id}&quot; kodlu malzeme kaydını silmek
+              istediğinize emin misiniz? Bu işlem geri alınamaz.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
