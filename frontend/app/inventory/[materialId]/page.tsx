@@ -1,38 +1,30 @@
 "use client";
 
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useInventoryStore } from "@/store/inventory";
 import { StockHistory } from "@/components/inventory/stock-history";
 import { StockTrendChart } from "@/components/inventory/stock-trend-chart";
 import { StockActions } from "@/components/inventory/stock-actions";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertTriangle, ArrowLeft } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Package, History, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
 interface StockDetailPageProps {
-  params: {
-    materialId: string;
-  };
+  params: Promise<{ materialId: string }>;
 }
 
 export default function StockDetailPage({ params }: StockDetailPageProps) {
-  const { selectedStock, loading, error, fetchStockHistory } = useInventoryStore();
-  const { getMaterialStock } = useInventoryStore();
+  const resolvedParams = use(params);
+  const { selectedStock, loading, error, getMaterialStock } = useInventoryStore();
 
   useEffect(() => {
-    getMaterialStock(params.materialId);
-  }, [getMaterialStock, params.materialId]);
+    getMaterialStock(resolvedParams.materialId);
+  }, [getMaterialStock, resolvedParams.materialId]);
 
   if (loading) {
-    return <div className="text-center py-8">Yükleniyor...</div>;
+    return <div className="flex items-center justify-center h-96">Yükleniyor...</div>;
   }
 
   if (error) {
@@ -55,7 +47,7 @@ export default function StockDetailPage({ params }: StockDetailPageProps) {
 
   return (
     <div className="space-y-6">
-      {/* Üst Bar */}
+      {/* Header Section */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Link href="/inventory">
@@ -63,28 +55,20 @@ export default function StockDetailPage({ params }: StockDetailPageProps) {
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <h1 className="text-2xl font-bold">Stok Detayı</h1>
+          <div>
+            <h1 className="text-2xl font-bold">{selectedStock.material_description || 'Stok Detayı'}</h1>
+            <p className="text-sm text-muted-foreground">ID: {selectedStock.material_id}</p>
+          </div>
         </div>
         <StockActions stock={selectedStock} />
       </div>
 
-      {/* Stok Bilgileri */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {/* Overview Cards */}
+      <div className="grid gap-6 md:grid-cols-3">
         <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-medium">Malzeme ID</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{selectedStock.material_id}</div>
-            <p className="text-xs text-muted-foreground">
-              {selectedStock.material_description || "Açıklama yok"}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Toplam Stok</CardTitle>
+            <Package className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{selectedStock.quantity}</div>
@@ -93,8 +77,9 @@ export default function StockDetailPage({ params }: StockDetailPageProps) {
         </Card>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Rezerve Stok</CardTitle>
+            <History className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{selectedStock.reserved}</div>
@@ -105,8 +90,9 @@ export default function StockDetailPage({ params }: StockDetailPageProps) {
         </Card>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Kullanılabilir</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{selectedStock.available}</div>
@@ -117,21 +103,21 @@ export default function StockDetailPage({ params }: StockDetailPageProps) {
         </Card>
       </div>
 
-      {/* Trend Grafiği */}
+      {/* Stock Trend Chart */}
       <Card>
         <CardHeader>
           <CardTitle>Stok Trendi</CardTitle>
           <CardDescription>Son 30 günlük stok değişimi</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           <div className="h-[400px]">
-            <StockTrendChart materialId={selectedStock.material_id} />
+            <StockTrendChart materialId={resolvedParams.materialId} />
           </div>
         </CardContent>
       </Card>
 
-      {/* Stok Hareketleri */}
-      <StockHistory materialId={selectedStock.material_id} />
+      {/* Stock History */}
+      <StockHistory materialId={resolvedParams.materialId} />
     </div>
   );
 }

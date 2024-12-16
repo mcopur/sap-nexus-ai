@@ -5,7 +5,8 @@ import {
   MaterialStockCreate, 
   MaterialStockUpdate,
   StockHistory,
-  PaginatedResponse 
+  PaginatedResponse, 
+  StockTrendData
 } from '@/types/inventory';
 
 // API URL'i env'den al
@@ -19,7 +20,10 @@ interface InventoryState {
   error: string | null;
   selectedStock: MaterialStock | null;
   lowStockItems: MaterialStock[];
+  stockTrend: StockTrendData[];
   stockHistory: StockHistory[];
+  getMaterialStock: (materialId: string) => Promise<void>;
+
   
   // Actions
   fetchStocks: (params?: { 
@@ -28,6 +32,7 @@ interface InventoryState {
     search?: string;
   }) => Promise<void>;
   fetchLowStocks: (threshold?: number) => Promise<void>;
+  fetchStockTrend: (materialId: string) => Promise<void>;
   fetchStockHistory: (materialId: string) => Promise<void>;
   createStock: (data: MaterialStockCreate) => Promise<void>;
   updateStock: (materialId: string, data: MaterialStockUpdate) => Promise<void>;
@@ -51,8 +56,8 @@ export const useInventoryStore = create<InventoryState>()(
       error: null,
       selectedStock: null,
       lowStockItems: [],
-      stockHistory: [],
-
+      stockTrend: [],
+      stockHistory: [], 
       // Actions
       fetchStocks: async (params) => {
         set({ loading: true, error: null });
@@ -89,20 +94,47 @@ export const useInventoryStore = create<InventoryState>()(
         }
       },
 
-      fetchStockHistory: async (materialId: string) => {
+      fetchStockTrend: async (materialId: string) => {
+        const { loading, stockTrend } = get(); 
+        if (!materialId || loading) return;    
+        
+        if (stockTrend.length > 0) return;
+      
         set({ loading: true, error: null });
         try {
-          const response = await fetch(`${API_URL}/inventory/${materialId}/history`);
-          if (!response.ok) throw new Error('Stok geçmişi alınamadı');
+          const response = await fetch(`${API_URL}/inventory/${materialId}/trend`);
+          if (!response.ok) throw new Error('Trend verisi alınamadı');
           
-          const data: StockHistory[] = await response.json();
-          set({ stockHistory: data });
+          const data: StockTrendData[] = await response.json();
+          set({ stockTrend: data });
         } catch (error) {
           set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
         } finally {
           set({ loading: false });
         }
       },
+      
+
+      fetchStockHistory: async (materialId: string) => {
+        const { loading, stockHistory } = get(); 
+        if (!materialId || loading) return; 
+      
+        if (stockHistory.length > 0) return;
+      
+        set({ loading: true, error: null });      
+        try {
+          const response = await fetch(`${API_URL}/inventory/${materialId}/history`);
+          if (!response.ok) throw new Error('Geçmiş verisi alınamadı');
+      
+          const data: StockHistory[] = await response.json();
+          set({ stockHistory: data });            
+        } catch (error) {
+          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+        } finally {
+          set({ loading: false });                
+        }
+      },
+      
 
       createStock: async (data) => {
         set({ loading: true, error: null });
@@ -186,6 +218,21 @@ export const useInventoryStore = create<InventoryState>()(
       },
 
       setSelectedStock: (stock) => set({ selectedStock: stock }),
+
+      getMaterialStock: async (materialId: string) => {
+        set({ loading: true, error: null });
+        try {
+          const response = await fetch(`${API_URL}/inventory/${materialId}`);
+          if (!response.ok) throw new Error('Stok detayı alınamadı');
+          
+          const data: MaterialStock = await response.json();
+          set({ selectedStock: data });
+        } catch (error) {
+          set({ error: error instanceof Error ? error.message : 'Bir hata oluştu' });
+        } finally {
+          set({ loading: false });
+        }
+      },
     }),
     { name: 'inventory-store' }
   )

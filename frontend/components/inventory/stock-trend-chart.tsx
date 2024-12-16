@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useCallback } from "react";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import {
@@ -12,44 +12,32 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-interface StockTrendData {
-  date: string;
-  quantity: number;
-  reserved: number;
-  available: number;
-}
+import { useInventoryStore } from "@/store/inventory";
 
 interface StockTrendChartProps {
   materialId: string;
 }
 
 export function StockTrendChart({ materialId }: StockTrendChartProps) {
-  const [data, setData] = useState<StockTrendData[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { stockTrend, loading, error, fetchStockTrend } = useInventoryStore();
+
+  const loadStockTrend = useCallback(async () => {
+    await fetchStockTrend(materialId);
+  }, [materialId, fetchStockTrend]);
 
   useEffect(() => {
-    const fetchTrendData = async () => {
-      try {
-        const response = await fetch(`/api/v1/inventory/${materialId}/trend`);
-        if (!response.ok) throw new Error("Trend verisi alınamadı");
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error("Trend verisi yüklenirken hata:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTrendData();
-  }, [materialId]);
+    loadStockTrend();
+  }, [loadStockTrend]);
 
   if (loading) {
-    return <div className="flex items-center justify-center h-full">Yükleniyor...</div>;
+    return (
+      <div className="flex items-center justify-center h-full">
+        Yükleniyor...
+      </div>
+    );
   }
 
-  if (data.length === 0) {
+  if (stockTrend.length === 0) {
     return (
       <div className="flex items-center justify-center h-full text-muted-foreground">
         Trend verisi bulunamadı
@@ -68,7 +56,7 @@ export function StockTrendChart({ materialId }: StockTrendChartProps) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
-        data={data}
+        data={stockTrend}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
         <defs>
@@ -94,7 +82,9 @@ export function StockTrendChart({ materialId }: StockTrendChartProps) {
         <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
         <Tooltip
           formatter={formatValue}
-          labelFormatter={(label) => format(new Date(label), "dd MMMM yyyy", { locale: tr })}
+          labelFormatter={(label) =>
+            format(new Date(label), "dd MMMM yyyy", { locale: tr })
+          }
         />
         <Area
           type="monotone"

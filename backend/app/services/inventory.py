@@ -7,7 +7,10 @@ from typing import Dict, Optional, Tuple, List
 from app.models.inventory import (
     MaterialStock,
     MaterialStockCreate,
-    MaterialStockUpdate
+    MaterialStockUpdate,
+    StockTrendResponse,
+    StockHistoryResponse,
+    StockHistory
 )
 from app.repositories.inventory import InventoryRepository
 
@@ -17,7 +20,6 @@ class InventoryService:
         self.repository = InventoryRepository(db)
 
     def create_material_stock(self, material_stock: MaterialStockCreate) -> MaterialStock:
-        """Yeni malzeme stok kaydı oluşturur"""
         try:
             db_material_stock = MaterialStock(
                 material_id=material_stock.material_id,
@@ -33,7 +35,6 @@ class InventoryService:
             )
 
     def get_material_stock(self, material_id: str) -> MaterialStock:
-        """Malzeme stok bilgisini getirir"""
         material_stock = self.repository.get_by_material_id(material_id)
         if not material_stock:
             raise HTTPException(
@@ -48,7 +49,6 @@ class InventoryService:
         limit: int = 100,
         search: Optional[str] = None
     ) -> Tuple[List[MaterialStock], int]:
-        """Malzeme stok listesini getirir"""
         return self.repository.list_stocks(skip, limit, search)
 
     def update_material_stock(
@@ -56,7 +56,6 @@ class InventoryService:
         material_id: str,
         material_stock: MaterialStockUpdate
     ) -> MaterialStock:
-        """Malzeme stok bilgilerini günceller"""
         db_material_stock = self.get_material_stock(material_id)
 
         if material_stock.material_description is not None:
@@ -79,12 +78,10 @@ class InventoryService:
         return self.repository.update(db_material_stock)
 
     def delete_material_stock(self, material_id: str) -> None:
-        """Malzeme stok kaydını siler"""
         material_stock = self.get_material_stock(material_id)
         self.repository.delete(material_stock)
 
     def get_low_stock_materials(self, threshold: float = 10.0) -> List[MaterialStock]:
-        """Düşük stoklu malzemeleri getirir"""
         return self.repository.get_low_stock_materials(threshold)
 
     def adjust_stock(
@@ -94,7 +91,6 @@ class InventoryService:
         is_reserved: bool = False,
         notes: Optional[str] = None
     ) -> MaterialStock:
-        """Stok miktarını artırır veya azaltır"""
         material_stock = self.get_material_stock(material_id)
 
         try:
@@ -115,7 +111,6 @@ class InventoryService:
             material_stock.update_available()
             updated_stock = self.repository.update(material_stock)
 
-            # Stok hareketi kaydı oluştur
             self.repository.create_stock_history(
                 material_id=material_id,
                 quantity_change=quantity_change,
@@ -133,54 +128,47 @@ class InventoryService:
                 detail=str(e)
             )
 
-    def get_stock_trend(self, material_id: str, days: int) -> List[Dict]:
-        """Stok trend verilerini getirir"""
-        # Başlangıç tarihini hesapla
+    def get_stock_trend(self, material_id: str, days: int = 30) -> List[StockTrendResponse]:
         end_date = datetime.utcnow()
         start_date = end_date - timedelta(days=days)
 
-        # Stok hareketlerini getir
         stock_movements = self.repository.get_stock_history(
             material_id=material_id,
             start_date=start_date,
             end_date=end_date
         )
 
-        # Günlük değişimleri hesapla
-        daily_stocks = {}
         current_stock = self.get_material_stock(material_id)
+        daily_stocks = {}
 
-        # Her gün için veri oluştur
         current_date = start_date
         while current_date <= end_date:
-            date_str = current_date.strftime('%Y-%m-%d')
-            daily_stocks[date_str] = {
-                'date': current_date.isoformat(),
-                'quantity': current_stock.quantity,
-                'reserved': current_stock.reserved,
-                'available': current_stock.available
-            }
+            daily_stocks[current_date.date()] = StockTrendResponse(
+                date=current_date,
+                quantity=current_stock.quantity,
+                reserved=current_stock.reserved,
+                available=current_stock.available
+            )
             current_date += timedelta(days=1)
 
-        # Değişimleri uygula
         for movement in stock_movements:
-            date_str = movement.created_at.strftime('%Y-%m-%d')
-            if date_str in daily_stocks:
+            date = movement.created_at.date()
+            if date in daily_stocks:
+                stock = daily_stocks[date]
                 if movement.is_reserved:
-                    daily_stocks[date_str]['reserved'] = movement.new_quantity
-                    daily_stocks[date_str]['available'] = (
-                        daily_stocks[date_str]['quantity'] -
-                        movement.new_quantity
-                    )
+                    stock.reserved = movement.new_quantity
+                    stock.available = stock.quantity - movement.new_quantity
                 else:
-                    daily_stocks[date_str]['quantity'] = movement.new_quantity
-                    daily_stocks[date_str]['available'] = (
-                        movement.new_quantity -
-                        daily_stocks[date_str]['reserved']
-                    )
+                    stock.quantity = movement.new_quantity
+                    stock.available = movement.new_quantity - stock.reserved
 
-        # Listeye çevir ve sırala
-        trend_data = list(daily_stocks.values())
-        trend_data.sort(key=lambda x: x['date'])
+        return list(daily_stocks.values())
 
-        return trend_data
+    def get_stock_history(self, material_id: str, limit: int = 100) -> List[StockHistoryResponse]:
+        return [
+            StockHistoryResponse.from_orm(record)
+            for record in self.repository.get_stock_history_paginated(
+                material_id=material_id,
+                limit=limit
+            )
+        ]

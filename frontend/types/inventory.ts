@@ -34,6 +34,13 @@ export interface StockHistory {
   notes?: string;
 }
 
+export interface StockTrendData {
+  date: string;          // ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
+  quantity: number;      // Toplam stok miktarı
+  reserved: number;      // Rezerve edilen miktar  
+  available: number;     // Kullanılabilir miktar (quantity - reserved)
+ }
+ 
 export interface PaginatedResponse<T> {
   items: T[];
   total: number;
