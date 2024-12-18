@@ -43,4 +43,4 @@ models/
 # Infrastructure
 *.tfstate
 *.tfstate.*
-.terraform/
+.terraform/backend/output/cleaned_data.csv
