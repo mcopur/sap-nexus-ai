@@ -37,7 +37,6 @@ out/
 *.h5
 *.pkl
 mlruns/
-models/
 .ipynb_checkpoints
 
 # Infrastructure
