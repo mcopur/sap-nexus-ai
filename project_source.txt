@@ -7,7 +7,7 @@ from pathlib import Path
 excluded_dirs = [
     'node_modules', '.next', 'out', 'build', '.idea', '.bsp', '.metals',
     '.git', 'logs', 'dist', '.cache', 'coverage', 'public', '.vscode',
-    '.bloop', '.sbt', '.ivy2', '.coursier', 'storybook-static', '__pycache__',
+    '.bloop', '.sbt', '.ivy2', '.coursier', 'storybook-static', '__pycache__', 'data', 'output',
     'tests', 'test', 'venv', 'env', 'examples', 'docs', '__snapshots__', 'migrations'
 ]
 
@@ -11547,45 +11547,105 @@ black==24.10.0
 cffi==1.17.1
 click==8.1.7
 cryptography==44.0.0
-ecdsa==0.19.0
-fastapi==0.115.6
-flake8==7.1.1
-h11==0.14.0
-idna==3.10
-iniconfig==2.0.0
-Mako==1.3.8
-MarkupSafe==3.0.2
-mccabe==0.7.0
-mypy-extensions==1.0.0
-packaging==24.2
-passlib==1.7.4
-pathspec==0.12.1
-platformdirs==4.3.6
-pluggy==1.5.0
-pyasn1==0.6.1
-pycodestyle==2.12.1
-pycparser==2.22
-pydantic==2.10.3
-pydantic_core==2.27.1
-pyflakes==3.2.0
-pytest==8.3.4
-python-dotenv==1.0.1
+fastapi==0.109.2
+pydantic[email]>=2.5.3,<3.0.0
+pydantic-settings==2.1.0
+psycopg2-binary==2.9.9
 python-jose==3.3.0
 python-multipart==0.0.19
-rsa==4.9
-six==1.17.0
-sniffio==1.3.1
 SQLAlchemy==2.0.36
-starlette==0.41.3
-typing_extensions==4.12.2
-uvicorn==0.32.1
-
+starlette>=0.35.1,<0.37.0
+uvicorn[standard]==0.27.1
+python-dotenv==1.0.1
+prophet==1.1.6
 --- End of backend/requirements.txt ---
 
 --- Start of backend/.env ---
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/sap_nexus
 
 --- End of backend/.env ---
+
+--- Start of backend/m.py ---
+import os
+from pathlib import Path
+
+# List of folders to exclude (dependencies, builds, etc.)
+excluded_dirs = [
+    'node_modules', '.next', 'out', 'build', '.idea', '.bsp', '.metals',
+    '.git', 'logs', 'dist', '.cache', 'coverage', 'public', '.vscode',
+    '.bloop', '.sbt', '.ivy2', '.coursier', 'storybook-static', '__pycache__',
+    'tests', 'test', 'venv', 'env', 'examples', 'docs', '__snapshots__', 'migrations'
+]
+
+# List of file extensions and specific files to include
+included_extensions = [
+    '.js', '.jsx', '.ts', '.tsx',  # JavaScript and TypeScript source files
+    '.py', '.ipynb',  # Python source and notebook files
+    '.json',  # JSON files (e.g., tsconfig.json, eslint.json)
+    '.css', '.scss',  # Style files
+    '.env',  # Environment variables
+    '.config.js', '.config.ts', '.config.py',  # Configuration files
+    'package.json', 'package-lock.json', 'yarn.lock',  # Dependency files
+    # Python dependency files
+    'requirements.txt', 'Pipfile', 'Pipfile.lock', 'pyproject.toml',
+    'next.config.js', 'next.config.mjs'  # Next.js config files
+]
+
+# Load .gitignore patterns
+
+
+def load_gitignore_patterns():
+    gitignore_path = Path(".gitignore")
+    if gitignore_path.exists():
+        with open(gitignore_path, "r", encoding="utf-8") as f:
+            patterns = [line.strip() for line in f if line.strip()
+                        and not line.startswith("#")]
+        return patterns
+    return []
+
+# Check if a file is ignored based on .gitignore patterns
+
+
+def is_ignored(filepath, patterns):
+    try:
+        relative_filepath = filepath.relative_to(Path.cwd())
+    except ValueError:
+        return False
+    for pattern in patterns:
+        if relative_filepath.match(pattern):
+            return True
+    return False
+
+
+# Define the directory containing your files
+root_dir = "."
+
+# Load gitignore patterns
+ignore_patterns = load_gitignore_patterns()
+
+# Open a new text file to write the combined contents
+with open("project_source.txt", "w", encoding="utf-8") as outfile:
+    # Walk through all directories and files
+    for subdir, dirs, files in os.walk(root_dir):
+        # Skip excluded directories
+        dirs[:] = [d for d in dirs if d not in excluded_dirs]
+
+        for file in files:
+            filepath = Path(subdir) / file
+            # Check if the file has the correct extension or is a specific included file
+            if any(str(filepath).endswith(ext) for ext in included_extensions) and not is_ignored(filepath, ignore_patterns):
+                try:
+                    with open(filepath, "r", encoding="utf-8") as infile:
+                        outfile.write(f"\n--- Start of {filepath} ---\n")
+                        outfile.write(infile.read())
+                        outfile.write(f"\n--- End of {filepath} ---\n")
+                except Exception as e:
+                    # Print error message
+                    print(f"Error reading {filepath}: {e}")
+
+print("Relevant project files have been combined into project_source.txt")
+
+--- End of backend/m.py ---
 
 --- Start of backend/app/__init__.py ---
 
@@ -11779,7 +11839,7 @@ class MaterialStock(Base):
 
     @validates('reserved')
     def validate_reserved(self, key, value):
-        """Reserved miktarının quantity'den büyük olmamasını sağlar"""
+        """Reserved miktarının quantity'den büyük olmamasını sağlar."""
         if value > self.quantity:
             raise ValueError(
                 "Reserved quantity cannot be greater than total quantity")
@@ -11792,6 +11852,9 @@ class MaterialStockBase(BaseModel):
     quantity: float = Field(ge=0)
     reserved: float = Field(ge=0, default=0)
 
+    class Config:
+        from_attributes = True
+
 
 class MaterialStockCreate(MaterialStockBase):
     pass
@@ -11801,6 +11864,9 @@ class MaterialStockUpdate(BaseModel):
     material_description: Optional[str] = None
     quantity: Optional[float] = Field(ge=0, default=None)
     reserved: Optional[float] = Field(ge=0, default=None)
+
+    class Config:
+        from_attributes = True
 
 
 class MaterialStockRead(MaterialStockBase):
@@ -11838,7 +11904,6 @@ class StockHistory(Base):
     notes = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    # Relationship
     material = relationship("MaterialStock", backref="history")
 
 
@@ -11908,16 +11973,210 @@ def get_db():
 --- End of backend/app/db/__init__.py ---
 
 --- Start of backend/app/db/base.py ---
+# app/db/base.py
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from app.core.config import settings
 
-engine = create_engine(settings.DATABASE_URL)
-SessionLocal = sessionmaker(bind=engine)
+engine = create_engine(str(settings.DATABASE_URL))
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 --- End of backend/app/db/base.py ---
+
+--- Start of backend/app/api/v1/forecast.py ---
+import pandas as pd
+import numpy as np
+from pathlib import Path
+import logging
+from datetime import datetime
+import joblib
+from prophet import Prophet
+from prophet.diagnostics import cross_validation, performance_metrics
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from fastapi import APIRouter, HTTPException, BackgroundTasks
+import gc
+from typing import Dict, Any
+
+# Logger ayarları
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+router = APIRouter()
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+PREPARED_DATA_DIR = BASE_DIR / "output" / "prepared_data"
+MODEL_DIR = BASE_DIR / "output" / "models"
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def get_latest_prepared_data():
+    """
+    En son hazırlanmış veri setini bulur
+    """
+    prepared_files = list(PREPARED_DATA_DIR.glob("prepared_data_*.pkl"))
+    if not prepared_files:
+        raise FileNotFoundError("No prepared data files found")
+    return max(prepared_files, key=lambda x: x.stat().st_mtime)
+
+
+def train_prophet_model(train_df: pd.DataFrame, material_id: str, validation_df: pd.DataFrame = None) -> Dict[str, Any]:
+    """
+    Prophet modelini eğitir ve değerlendirir
+    """
+    try:
+        logger.info(f"Training model for material {material_id}")
+
+        # Veri kontrolü
+        if len(train_df) < 30:
+            raise ValueError(
+                f"Insufficient data points for material {material_id}")
+
+        if train_df["y"].std() <= 0.0:
+            logger.warning(
+                f"Material {material_id} has zero variance. Adding minimal noise to proceed.")
+            train_df["y"] += np.random.normal(0, 0.001, size=len(train_df))
+
+        # Model parametreleri
+        model = Prophet(
+            yearly_seasonality=True,
+            weekly_seasonality=True,
+            daily_seasonality=False,
+            changepoint_prior_scale=0.1,
+            seasonality_prior_scale=10.0,
+            seasonality_mode='multiplicative',
+            changepoint_range=0.95,
+            interval_width=0.95,
+            growth='linear'
+        )
+
+        model.add_country_holidays(country_name='TR')
+
+        # Model eğitimi
+        model.fit(train_df)
+
+        # Cross-validation
+        df_cv = cross_validation(
+            model,
+            initial='180 days',
+            period='30 days',
+            horizon='90 days',
+            parallel="processes"
+        )
+
+        df_p = performance_metrics(df_cv)
+
+        # Tahmin sonuçları
+        future = model.make_future_dataframe(periods=90, freq='W')
+        forecast = model.predict(future)
+
+        # Align validation data with forecast
+        val_metrics = None
+        if validation_df is not None:
+            logger.info("Aligning validation data with forecast...")
+            aligned_val_df = validation_df[validation_df['ds'].isin(
+                forecast['ds'])]
+
+            if aligned_val_df.empty:
+                raise ValueError(
+                    f"Validation data for material {material_id} does not align with forecast dates.")
+
+            val_forecast = forecast[forecast['ds'].isin(aligned_val_df['ds'])]
+            val_metrics = {
+                "rmse": float(np.sqrt(mean_squared_error(aligned_val_df["y"], val_forecast["yhat"]))),
+                "mae": float(mean_absolute_error(aligned_val_df["y"], val_forecast["yhat"])),
+                "r2": float(r2_score(aligned_val_df["y"], val_forecast["yhat"]))
+            }
+
+        forecast_std = forecast["yhat"].std()
+        if forecast_std < 0.01:
+            logger.warning(
+                f"Low forecast variance for material {material_id}: {forecast_std}")
+
+        model_path = MODEL_DIR / \
+            f"{material_id}_model_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pkl"
+        with open(model_path, "wb") as f:
+            joblib.dump(model, f)
+
+        return {
+            "material_id": material_id,
+            "model_path": str(model_path),
+            "metrics": {
+                "rmse": float(df_p["rmse"].mean()),
+                "mae": float(df_p["mae"].mean()),
+                "mape": float(df_p["mape"].mean()) if "mape" in df_p.columns else None,
+                "coverage": float(df_p["coverage"].mean())
+            },
+            "validation_metrics": val_metrics,
+            "forecast": forecast[["ds", "yhat", "yhat_lower", "yhat_upper"]].to_dict(orient="records"),
+            "cross_validation_metrics": df_p.to_dict(orient="records"),
+            "training_size": len(train_df)
+        }
+
+    except Exception as e:
+        logger.error(
+            f"Error in model training for material {material_id}: {e}")
+        raise
+    finally:
+        gc.collect()
+
+
+@router.post("/train-model")
+async def train_model_endpoint(background_tasks: BackgroundTasks):
+    try:
+        data_file = get_latest_prepared_data()
+        prepared_data = joblib.load(data_file)
+
+        logger.info(f"Total materials in prepared data: {len(prepared_data)}")
+
+        best_material = None
+        max_data_points = 0
+
+        for material_id, data in prepared_data.items():
+            count = data["stats"]["count"]
+            std = data["stats"]["std"]
+
+            logger.info(
+                f"Evaluating material {material_id}: count={count}, std={std}")
+
+            if count >= 5:  # Allow materials with fewer data points
+                if std <= 0.0:
+                    logger.warning(
+                        f"Material {material_id} has zero variance but is being considered.")
+                if count > max_data_points:
+                    best_material = material_id
+                    max_data_points = count
+
+        if not best_material:
+            logger.error("No suitable material found in the prepared data")
+            raise HTTPException(
+                status_code=404,
+                detail=f"No suitable material found. Total materials: {len(prepared_data)}"
+            )
+
+        logger.info(
+            f"Selected material {best_material} with {max_data_points} data points")
+
+        material_data = prepared_data[best_material]["data"]
+
+        train_size = int(len(material_data) * 0.8)
+        train_df = material_data.iloc[:train_size]
+        val_df = material_data.iloc[train_size:]
+
+        result = train_prophet_model(train_df, best_material, val_df)
+
+        return {
+            "message": f"Model trained successfully for material: {best_material}",
+            "statistics": prepared_data[best_material]["stats"],
+            **result
+        }
+
+    except Exception as e:
+        logger.error(f"Error during model training: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+--- End of backend/app/api/v1/forecast.py ---
 
 --- Start of backend/app/api/v1/__init__.py ---
 
@@ -11926,10 +12185,19 @@ Base = declarative_base()
 --- Start of backend/app/api/v1/api.py ---
 from fastapi import APIRouter
 from app.api.v1.inventory import router as inventory_router
+from app.api.v1.forecast import router as forecast_router
 api_router = APIRouter()
 
+
+# Inventory Router
 api_router.include_router(
-    inventory_router, prefix="/inventory", tags=["inventory"])
+    inventory_router, prefix="/inventory", tags=["inventory"]
+)
+
+# Forecast Router
+api_router.include_router(
+    forecast_router, prefix="/forecast", tags=["forecast"]
+)
 
 --- End of backend/app/api/v1/api.py ---
 
@@ -12246,6 +12514,259 @@ class InventoryService:
 
 --- End of backend/app/services/inventory.py ---
 
+--- Start of backend/scripts/data_cleaning.py ---
+import pandas as pd
+import numpy as np
+from pathlib import Path
+import logging
+from datetime import datetime
+import joblib
+import gc
+
+# Logger ayarları
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# Dosya yolları
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+OUTPUT_DIR = BASE_DIR / "output"
+PREPARED_DATA_DIR = OUTPUT_DIR / "prepared_data"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+PREPARED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def load_excel_files():
+    """
+    Excel dosyalarını yükler.
+    """
+    file_paths = {
+        "ORDERS": DATA_DIR / "ORDERS.XLSX",
+        "DELIVERY": DATA_DIR / "DELIVERY.XLSX",
+        "STOCK": DATA_DIR / "STOCK.xlsx",
+        "OPEN_ORDERS": DATA_DIR / "OPEN_ORDERS.XLSX",
+        "MATERIAL_LIST": DATA_DIR / "MATERIAL_LIST.xlsx",
+    }
+
+    dataframes = {}
+    for name, path in file_paths.items():
+        try:
+            logger.info(f"Loading {name} from {path}")
+            df = pd.read_excel(path)
+            dataframes[name] = df
+            logger.info(f"Successfully loaded {name} with {len(df)} rows")
+        except Exception as e:
+            logger.error(f"Error loading {name}: {e}")
+    return dataframes
+
+
+def clean_and_standardize_dataframes(dataframes):
+    """
+    Sütun isimlerini normalize eder ve veriyi temizler.
+    """
+    for name, df in dataframes.items():
+        logger.info(f"Cleaning {name}")
+
+        # Sütun isimlerini büyük harfe çevirip boşlukları temizle
+        df.columns = df.columns.str.upper().str.strip()
+
+        # Boş değerleri kontrol et ve logla
+        null_counts = df.isnull().sum()
+        if null_counts.any():
+            logger.warning(
+                f"Null values in {name}:\n{null_counts[null_counts > 0]}")
+
+        # Standardizasyon
+        if "MATERIAL_NUMBER" in df.columns:
+            df.rename(columns={"MATERIAL_NUMBER": "MATERIAL"}, inplace=True)
+        if "ORDER_NUMBER" in df.columns:
+            df.rename(columns={"ORDER_NUMBER": "ORDER_ID"}, inplace=True)
+
+        if "STOCK_QUANTITY" in df.columns:
+            df["STOCK_QUANTITY"] = pd.to_numeric(
+                df["STOCK_QUANTITY"], errors="coerce")
+            initial_count = len(df)
+            df.dropna(subset=["STOCK_QUANTITY"], inplace=True)
+            dropped_count = initial_count - len(df)
+            if dropped_count > 0:
+                logger.info(
+                    f"Dropped {dropped_count} rows with invalid STOCK_QUANTITY in {name}")
+
+        dataframes[name] = df
+        logger.info(f"Cleaned {name}. Shape: {df.shape}")
+
+    return dataframes
+
+
+def combine_dataframes(dataframes):
+    """
+    Dataframe'leri birleştirir
+    """
+    logger.info("Combining dataframes...")
+    try:
+        # ORDERS ve STOCK birleştirme
+        combined_df = dataframes["ORDERS"].merge(
+            dataframes["STOCK"],
+            on="MATERIAL",
+            how="left"
+        )
+        logger.info(f"Combined ORDERS and STOCK. Shape: {combined_df.shape}")
+
+        # DELIVERY verisini ekleme
+        combined_df = combined_df.merge(
+            dataframes["DELIVERY"],
+            left_on="ORDER_ID",
+            right_on="ORDER",
+            how="left"
+        )
+        logger.info(f"Added DELIVERY data. Final shape: {combined_df.shape}")
+
+        return combined_df
+
+    except Exception as e:
+        logger.error(f"Error during merging: {e}")
+        raise
+
+
+def prepare_and_save_data(combined_df: pd.DataFrame):
+    try:
+        logger.info("Starting data preparation process...")
+
+        # Gerekli sütunları seç
+        df = combined_df[["MATERIAL_x", "STOCK_QUANTITY"]].rename(
+            columns={"MATERIAL_x": "MATERIAL"}
+        )
+        df = df.dropna()
+
+        logger.info(f"Initial unique materials: {df['MATERIAL'].nunique()}")
+
+        # Temel istatistikleri logla
+        logger.info("STOCK_QUANTITY statistics before cleaning:")
+        logger.info(f"Mean: {df['STOCK_QUANTITY'].mean()}")
+        logger.info(f"Std: {df['STOCK_QUANTITY'].std()}")
+        logger.info(f"Min: {df['STOCK_QUANTITY'].min()}")
+        logger.info(f"Max: {df['STOCK_QUANTITY'].max()}")
+
+        # Aykırı değerleri temizle
+        Q1 = df["STOCK_QUANTITY"].quantile(0.25)
+        Q3 = df["STOCK_QUANTITY"].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+
+        df = df[(df["STOCK_QUANTITY"] >= lower_bound) &
+                (df["STOCK_QUANTITY"] <= upper_bound)]
+
+        # Her materyal için veri noktalarını logla
+        material_counts = df["MATERIAL"].value_counts()
+        logger.info(f"Material counts after filtering:\n{material_counts}")
+
+        # Veri sayısını azaltan limitleri gevşet
+        valid_materials = material_counts[material_counts >= 5].index
+        df = df[df["MATERIAL"].isin(valid_materials)]
+
+        logger.info(f"Remaining unique materials: {len(valid_materials)}")
+
+        # İstatistikler
+        stats = df.groupby("MATERIAL")["STOCK_QUANTITY"].agg([
+            "count",
+            "mean",
+            "std",
+            "min",
+            "max",
+            "var"
+        ]).reset_index()
+
+        logger.info(f"Statistics for materials:\n{stats.head()}")
+
+        # Varyans filtresini gevşet
+        min_variance = stats["var"].quantile(0.05)  # Threshold lowered
+        stats = stats[stats["var"] > min_variance]
+
+        logger.info(f"Materials with sufficient variance: {len(stats)}")
+
+        if stats.empty:
+            logger.warning(
+                "No materials meet the variance threshold. Relaxing filters...")
+            stats = df.groupby("MATERIAL")["STOCK_QUANTITY"].agg([
+                "count", "mean", "std", "min", "max", "var"
+            ]).reset_index()
+
+        logger.info(f"Filtered data shape: {df.shape}")
+
+        # Hazırlanmış veriyi oluştur
+        prepared_data = {}
+        for idx, row in stats.iterrows():
+            material_id = row["MATERIAL"]
+            material_df = df[df["MATERIAL"] == material_id].copy()
+
+            material_df["ds"] = pd.date_range(
+                start="2024-01-01",
+                periods=len(material_df),
+                freq="W"
+            )
+            material_df["y"] = material_df["STOCK_QUANTITY"]
+
+            prepared_data[material_id] = {
+                "data": material_df[["ds", "y"]].sort_values("ds"),
+                "stats": row.to_dict()
+            }
+
+        logger.info(f"Prepared data for {len(prepared_data)} materials")
+
+        # Verileri kaydet
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+
+        # CSV kaydet
+        output_file = OUTPUT_DIR / "cleaned_data.csv"
+        combined_df.to_csv(output_file, index=False)
+        logger.info(f"Saved cleaned data to: {output_file}")
+
+        # Hazırlanmış veriyi kaydet
+        prepared_file = PREPARED_DATA_DIR / f"prepared_data_{timestamp}.pkl"
+        joblib.dump(prepared_data, prepared_file)
+        logger.info(f"Saved prepared data to: {prepared_file}")
+
+        # İstatistikleri kaydet
+        stats_file = PREPARED_DATA_DIR / f"data_statistics_{timestamp}.csv"
+        stats.to_csv(stats_file)
+        logger.info(f"Saved statistics to: {stats_file}")
+
+        logger.info(f"Data preparation completed. Files saved:")
+        logger.info(f"- Cleaned data: {output_file}")
+        logger.info(f"- Prepared data: {prepared_file}")
+        logger.info(f"- Statistics: {stats_file}")
+
+        return output_file, prepared_file, stats_file
+
+    except Exception as e:
+        logger.error(f"Error in data preparation: {e}")
+        raise
+
+
+if __name__ == "__main__":
+    try:
+        # Excel dosyalarını yükle ve birleştir
+        logger.info("Starting data processing...")
+        dataframes = load_excel_files()
+        clean_dfs = clean_and_standardize_dataframes(dataframes)
+        combined_df = combine_dataframes(clean_dfs)
+
+        # Veriyi hazırla ve kaydet
+        output_file, prepared_file, stats_file = prepare_and_save_data(
+            combined_df)
+        logger.info("Data processing completed successfully")
+
+    except Exception as e:
+        logger.error(f"Failed to process data: {e}")
+    finally:
+        gc.collect()
+
+--- End of backend/scripts/data_cleaning.py ---
+
 --- Start of backend/alembic/env.py ---
 # alembic/env.py
 from logging.config import fileConfig
@@ -12352,6 +12873,40 @@ def downgrade() -> None:
     # ### end Alembic commands ###
 
 --- End of backend/alembic/versions/6719bfd8f4fa_create_material_stocks_table.py ---
+
+--- Start of backend/alembic/versions/dde7e82c47d9_update_pydantic_models.py ---
+"""update_pydantic_models
+
+Revision ID: dde7e82c47d9
+Revises: 6bc8e3c2b7b5
+Create Date: 2024-12-18 20:29:17.294717
+
+"""
+from typing import Sequence, Union
+
+from alembic import op
+import sqlalchemy as sa
+
+
+# revision identifiers, used by Alembic.
+revision: str = 'dde7e82c47d9'
+down_revision: Union[str, None] = '6bc8e3c2b7b5'
+branch_labels: Union[str, Sequence[str], None] = None
+depends_on: Union[str, Sequence[str], None] = None
+
+
+def upgrade() -> None:
+    # ### commands auto generated by Alembic - please adjust! ###
+    pass
+    # ### end Alembic commands ###
+
+
+def downgrade() -> None:
+    # ### commands auto generated by Alembic - please adjust! ###
+    pass
+    # ### end Alembic commands ###
+
+--- End of backend/alembic/versions/dde7e82c47d9_update_pydantic_models.py ---
 
 --- Start of backend/alembic/versions/f0caf70a08ce_add_available_column.py ---
 """add available column
